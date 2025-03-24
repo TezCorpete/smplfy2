@@ -1,8 +1,4 @@
-A scholastic project, with the event hosted by the insurance company by the name of State Farm.
-
-This is in no way an official State Farm repository, 
-therefore any actions taken involving it do not reflect State Farm policy,
-or even imply the organization's or any employee of said's involvement.
+A scholastic project, done as part of a multiple-month challenge
 
 Dependencies: (Yes, I really know this little about JS / web development)
   - RequireJS (scripts/require.js): Library for managing dependencies, used heavily to make up for my inexperience with JavaScript
