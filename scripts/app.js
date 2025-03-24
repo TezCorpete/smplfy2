@@ -1,6 +1,6 @@
 requirejs.config({
   //By default load any module IDs from js/lib
-  baseUrl: "js/lib",
+  baseUrl: "scripts/lib",
   // ../ is a shorthand for parent directory, used to override baseUrl
   paths: {
     app: "../app",
