@@ -65,7 +65,7 @@ function(lem,          phraseData) {
    */
   function pickyNormalize(line) {
     // Replace all punctuation with spaces
-    line = line.replaceAll(/[,.()\/]/g, " ");
+    line = line.replaceAll(/[,.()\/'-]/g, " ");
     
     // Make an array of all the words, without surrounding spaces
     const words = line.split(/[\s]+/);
