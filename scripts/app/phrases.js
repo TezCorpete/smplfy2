@@ -91,7 +91,7 @@ function(lem,          phraseData) {
       const data = [];
 
       // Run for all phrases
-      for (int i = 0; i < phraseData.length; i++) {
+      for (let i = 0; i < phraseData.length; i++) {
         // Get the current phrase, instantiate object
         const entry = phraseData[i];
         const lookupObj = {};
