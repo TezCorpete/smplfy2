@@ -112,8 +112,8 @@ function(
   // Lemmatizer properties
   Lemmatizer.prototype = {
     form: '',
-    idx: '_idx',
-    exc: '_exc',
+    idx: 0 /*'_idx'*/,
+    exc: 1 /*'_exc'*/,
     lems: [], // -> [ ["lemma1", "verb"], ["lemma2", "noun"]... ]
   
     // **************************************************
@@ -184,12 +184,12 @@ function(
     setup_dic_data: function(pos) {
       var self = this;
       // var key_idx = pos + this.idx;
-      // _.each( this.fetch_data(key_idx), function(w) {
-      //   self.wordlists[pos][w] = w;
-      // });
+      _.each( self.wn_files[pos][idx] /*this.fetch_data(key_idx)*/, function(w) {
+        self.wordlists[pos][w] = w;
+      });
       
-      var key_exc = pos + this.exc; 
-      _.each( this.fetch_data(key_exc), function(item) {
+      // var key_exc = pos + this.exc; 
+      _.each( self.wn_files[pos][exc] /*this.fetch_data(key_exc)*/, function(item) {
         var w = item[0];
         var s = item[1];
         self.exceptions[pos][w] = s;
