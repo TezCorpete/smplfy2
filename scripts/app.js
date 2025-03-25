@@ -5,7 +5,7 @@ requirejs.config({
   paths: {
     app: "../app",
     src: "../src",
-    lemmatizer: "lemmatizer-v0.0.2.js",
+    lemmatizer: "lemmatizer-v0.0.2",
     underscore: "underscore-umd-min",
     jquery: "jquery-3.7.1.min",
     json: "require/json",
