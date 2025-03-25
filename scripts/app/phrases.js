@@ -68,7 +68,7 @@ function(lem,          phraseData) {
     line = line.replaceAll(/[,.()\/]/g, " ");
     
     // Make an array of all the words, without surrounding spaces
-    const words = line.split(/[\s]+/);
+    const words = line.split(/\s+/);
     
     removeAcronyms(words);
 
@@ -79,7 +79,7 @@ function(lem,          phraseData) {
     const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
 
     // Return the line, a string once more
-    return normalized.join(" ");
+    return normalized.join(" ").trim();
   }
 
   /** TODO: Move to private after use
