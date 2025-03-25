@@ -425,5 +425,8 @@ define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03
       });
       return result;
     }
-  };
+  }; // End of lemmatizer prototype
+
+  // A return added 25/03/2025.
+  return Lemmatizer;
 }); // End of added define
