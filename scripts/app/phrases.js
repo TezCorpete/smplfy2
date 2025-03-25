@@ -69,7 +69,7 @@ function(lem,          phraseData) {
       connections = [];
 
       for (let j = 0; j < phrases.length; j++) {
-        // Don't execute on lookupObj
+        // Don't execute on curr
         if (i === j) {
           continue;
         }
