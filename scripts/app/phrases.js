@@ -9,7 +9,7 @@ function(lem,          phraseData) {
   // **************************************************
   
   // Initialize the lemmatizer
-  const lemmatizer = new Lemmatizer();
+  const lemmatizer = new lem.Lemmatizer();
 
   // json.js plugin automatically parses, so no parsing needed
   
