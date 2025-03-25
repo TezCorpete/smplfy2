@@ -14,10 +14,8 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(["jquery", /*"app/phrases",*/ "json!src/phrases.json"],
-function   ($,        /*phrases,*/       phraseData) {
-  
-  console.log(phraseData);
+requirejs(["jquery", "app/phrases", "json!src/lookup.json", "json!src/phrases.json"],
+function   ($,        phrases,       phraseData) {
   
   function addRow(event) {
     // If addRow was called by an entry
@@ -53,9 +51,11 @@ function   ($,        /*phrases,*/       phraseData) {
     $(".row").last().append(newEntry);
   } // End addEntry
   
-  // When the document has loaded, add and continue adding event listeners
+  // When the document has loaded, add event listeners
   $(document).ready(function() {
     $("#title").on("click", {info: "temp"}, addEntry);
     $("#canvas").on("click", ".entry", addRow);
+
+    
   });
 }); // End of main logic
