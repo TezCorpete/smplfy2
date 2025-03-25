@@ -159,12 +159,15 @@ function(lem,          phraseData) {
 
       lookupObj.index = i;
       
-      data.push(JSON.stringify(lookupObj));
+      data.push(lookupObj);
     } // End of for
 
     // This'll take a while, but I don't know enough
     // big O to tell you just how inefficient it is.
     generateConnections(data);
+
+    // Convert every element to JSON text
+    data.map((datum) => JSON.stringify(data))
     
     console.log(`[\n  ${data.join(",\n  ")}\n]`);
   } // End of pNPD
