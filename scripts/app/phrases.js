@@ -63,7 +63,7 @@ function(lem,          phraseData) {
    * @param {String} line - A string that may contain some punctuation, which is to be ignored
    * @return {String} - The original line, sans acronyms, punctuation, capitalization, and alternate word forms
    */
-  pickyNormalize: function(line) {
+  function pickyNormalize(line) {
     // Replace all punctuation with spaces
     line = line.replaceAll(/[,.()\/]/, " ");
     
@@ -85,7 +85,7 @@ function(lem,          phraseData) {
   /** TODO: Move to private after use
    * Generates the normalized list of phrase data, printing it to the console to be copied.
    */
-  printNormalizedPhraseData: function() {
+  function printNormalizedPhraseData() {
     // Start the list
     const data = [];
 
