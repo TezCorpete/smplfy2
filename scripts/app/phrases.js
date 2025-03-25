@@ -80,7 +80,7 @@ function(lem,          phraseData) {
 
     // Return the line, a string once more
     return normalized.join(" ");
-  },
+  }
 
   /** TODO: Move to private after use
    * Generates the normalized list of phrase data, printing it to the console to be copied.
