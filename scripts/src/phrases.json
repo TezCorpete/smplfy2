@@ -1,4 +1,4 @@
-{"phrases":[
+[
   {"phrase":"Accident", "meaning":"an unexpected event or circumstance without deliberate intent."},
   {"phrase":"Accident Insurance", "meaning":"insurance for unforeseen bodily injury."},
   {"phrase":"Accident Only", "meaning":"an insurance contract that provides coverage, singly or in combination, for death, dismemberment, disability, or hospital and medical care caused by or necessitated as a result of accident or specified kinds of accident."},
@@ -507,4 +507,4 @@
   {"phrase":"Whole Life Insurance", "meaning":"life insurance that may be kept in force for the duration of a person's life and pays a benefit upon the person's death. Premiums are made for same time period."},
   {"phrase":"Workers' Compensation", "meaning":"insurance that covers an employer's liability for injuries, disability or death to persons in their employment, without regard to fault, as prescribed by state or federal workers' compensation laws and other statutes."},
   {"phrase":"Written Premium", "meaning":"the contractually determined amount charged by the reporting entity to the policyholder for the effective period of the contract based on the expectation of risk, policy benefits, and expenses associated with the coverage provided by the terms of the insurance contract."}
-]}
+]
