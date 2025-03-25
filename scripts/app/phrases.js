@@ -77,14 +77,14 @@ function(lem,          phraseData) {
         const other = phrases[j];
 
         // If any are true, a connection would be made. Better than a massive "or".
-        if ( (hasOwn(curr, "acronyms") && hasOwn(other, "acronyms"))     // If they have matching
-        && curr.acronyms.some((acr) => other.acronyms.includes(acr)) ) { // acronyms, connect them.
+        if ( (Object.hasOwn(curr, "acronyms") && Object.hasOwn(other, "acronyms"))     // If they have matching
+        && curr.acronyms.some((acr) => other.acronyms.includes(acr)) ) {               // acronyms, connect them.
           curr.connections.push({ "index": j });
-        } else if ( curr.lemmas[meaning].includes(other.lemmas[phrase])  // Or if either phrase is
-        || other.lemmas[meaning].includes(curr.lemmas[phrase]) ) {       // in the other's meaning
+        } else if ( curr.lemmas[meaning].includes(other.lemmas[phrase])                // Or if either phrase is
+        || other.lemmas[meaning].includes(curr.lemmas[phrase]) ) {                     // in the other's meaning
           curr.connections.push({ "index": j });
-        } else if ( (curr.lemmas.length > 2 && other.lemmas.length > 2)  // Or if they have
-        && (curr.lemmas[category] == other.lemmas[category]) ) {         // matching categories
+        } else if ( (curr.lemmas.length > 2 && other.lemmas.length > 2)                // Or if they have
+        && (curr.lemmas[category] == other.lemmas[category]) ) {                       // matching categories
           curr.connections.push({ "index": j });
         } // End of "if" brick
       } // end other loop
