@@ -98,8 +98,6 @@ function(lem,          phraseData) {
         }
         curr.connections = connections;
       }
-
-      console.log(JSON.stringify(curr));
     } // End curr loop
   } // End of generate connections
   
@@ -140,7 +138,7 @@ function(lem,          phraseData) {
    */
   function printNormalizedPhraseData() {
     // Start the list
-    const data = [];
+    const lookup = [];
 
     // Run for all phrases
     for (let i = 0; i < phraseData.length; i++) {
@@ -170,15 +168,15 @@ function(lem,          phraseData) {
 
       lookupObj.index = i;
       
-      data.push(lookupObj);
+      lookup.push(lookupObj);
     } // End of for
 
     // This'll take a while, but I don't know enough
     // big O to tell you just how inefficient it is.
-    generateConnections(data);
+    generateConnections(lookup);
 
     // Convert every element to JSON text
-    data.map((datum) => JSON.stringify(datum));
+    const data = lookup.map((datum) => JSON.stringify(datum));
     
     console.log(`[\n  ${data.join(",\n  ")}\n]`);
   } // End of pNPD
