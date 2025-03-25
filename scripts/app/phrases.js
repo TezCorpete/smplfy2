@@ -2,8 +2,16 @@
 // and make lists of identifying words/phrases. Then, calculate
 // any connections between them.
 
-define(["lemmatizer"], function(lem) {
+define(["lemmatizer", "json!src/phrases.json"], 
+function(lem,          phraseData) {
+  // **************************************************
+  // Setup
+  // **************************************************
+  
+  // Initialize the lemmatizer
   const lemmatizer = new lem.Lemmatizer();
+
+  // json.js plugin automatically parses, so no parsing needed
   
   // **************************************************
   // Internal/Private (Not included in return statement)
@@ -28,21 +36,21 @@ define(["lemmatizer"], function(lem) {
   
   /**
    * Removes all acronyms from an Array of words
-   * @param {Array} wordList - A list potentially containing acronyms
-   * @return {void} - All changes to wordList are automatically applied
+   * @param {Array} arr - A list potentially containing acronyms
+   * @return {void} - All changes to arr are automatically applied
    * Didn't need to be an extension, just looks better this way
    */
-  Array.prototype.removeAcronyms = function() {
-    let wlength = this.length;
+  function removeAcronyms(arr) {
+    let length = arr.length;
     let i = 0;
-    while (i < wlength) {
-      if (this[i].isAcronym()) {
-        this.remove(i);
+    while (i < length) {
+      if (arr[i].isAcronym()) {
+        arr.remove(i);
         // Element i has been removed, so the next element also has index i
       } else { // Not an acronym
         i++;
       }
-      wlength = this.length;
+      length = arr.length;
     } // End of loop
   } // End of removeAcronyms
   
@@ -52,9 +60,9 @@ define(["lemmatizer"], function(lem) {
   
   return {
     /**
-     * Mormalizes the given fragment by removing any features that are potentially ever-so-slightly different
-     * @param {String} line - A string that may contain some non-words (acronyms, punctuation), which are to be ignored
-     * @return {String} - The original line, sans acronyms, punctuation, and capitalization
+     * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
+     * @param {String} line - A string that may contain some punctuation, which is to be ignored
+     * @return {String} - The original line, sans acronyms, punctuation, capitalization, and alternate word forms
      */
     pickyNormalize: function(line) {
       // Replace all punctuation with spaces
@@ -74,8 +82,40 @@ define(["lemmatizer"], function(lem) {
       // Return the line, a string once more
       return normalized.join(" ");
     }
-  }
-});
 
-// TODO: Write a function that uses the lemmatizer on the given doc
-// and searches phrases.json for matches.
+    /** TODO: Move to private. Only used for setup of lookup.json
+     * Generates the normalized list of phrase data, printing it to the console to be copied.
+     */
+    printNormalizedPhraseData: function() {
+      // Start the list
+      const data = [];
+
+      // Run for all phrases
+      for (int i = 0; i < phraseData.length; i++) {
+        // Get the current phrase, instantiate object
+        const entry = phraseData[i];
+        const lookupObj = {};
+
+        // Lemmatize all info
+        const lemms = [];
+        lemms.push(pickyNormalize(entry.phrase));
+        lemms.push(pickyNormalize(entry.meaning));
+        // Only if category exists
+        if (Object.hasOwn(entry, "category")) {
+          lemms.push(pickyNormalize(entry.category));
+        }
+        lookupObj.lemmas = lemms;
+
+        // Add acronyms, if applicable
+        if (Object.hasOwn(entry, "acronyms")) {
+          lookupObj.acronyms = entry.acronyms;
+        }
+
+        lookupObj.index = i;
+        data.push(lookupObj);
+      } // End of for
+
+      console.log(JSON.stringify(data));
+    } // End of pNPD
+  } // End of return/public
+}); // End of define
