@@ -184,12 +184,12 @@ function(
     setup_dic_data: function(pos) {
       var self = this;
       // var key_idx = pos + this.idx;
-      _.each( self.wn_files[pos][idx] /*this.fetch_data(key_idx)*/, function(w) {
+      _.each( self.wn_files[pos][this.idx] /*this.fetch_data(key_idx)*/, function(w) {
         self.wordlists[pos][w] = w;
       });
       
       // var key_exc = pos + this.exc; 
-      _.each( self.wn_files[pos][exc] /*this.fetch_data(key_exc)*/, function(item) {
+      _.each( self.wn_files[pos][this.exc] /*this.fetch_data(key_exc)*/, function(item) {
         var w = item[0];
         var s = item[1];
         self.exceptions[pos][w] = s;
