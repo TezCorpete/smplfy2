@@ -5,7 +5,28 @@
 * by Takafumi Yamano
 */
 
-define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03/2025 dd/mm/yyyy
+define([ // Added for UnderscoreJS dependency, 25/03/2025
+        "underscore", 
+        "json!dict/adj.exc.json",
+        "json!dict/adv.exc.json",
+        "json!dict/index.adj.json",
+        "json!dict/index.adv.json",
+        "json!dict/index.noun.json",
+        "json!dict/index.verb.json",
+        "json!dict/noun.exc.json",
+        "json!dict/verb.exc.json"
+       ], 
+function(
+         _,
+         adjExc,
+         advExc,
+         indexAdj,
+         indexAdv,
+         indexNoun,
+         indexVerb,
+         nounExc,
+         verbExc
+        ) { 
   // extend String and define String#endsWith
   if (typeof String.endsWith !== "function") {
     String.prototype.endsWith = function(suffix) {
@@ -17,20 +38,20 @@ define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03
   var Lemmatizer = function() {
     this.wn_files = {
       noun: [
-        '../dict/index.noun.json',
-        '../dict/noun.exc.json'
+        indexNoun,
+        nounExc
       ],
       verb: [
-        '../dict/index.verb.json',
-        '../dict/verb.exc.json'
+        indexVerb,
+        verbExc
       ],
       adj:  [
-        '../dict/index.adj.json',
-        '../dict/adj.exc.json'
+        indexAdj,
+        adjExc
       ],
       adv:  [
-        '../dict/index.adv.json',
-        '../dict/adv.exc.json'
+        indexAdv,
+        advExc
       ]
     };
   
@@ -77,10 +98,10 @@ define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03
       this.exceptions[key] = {};
     }
   
-    // store dictionary data to localStorage from wn_files
-    for (var pos in this.wn_files) {
-      this.load_wordnet_files(pos, this.wn_files[pos][0], this.wn_files[pos][1]);
-    }
+    // // store dictionary data to localStorage from wn_files
+    // for (var pos in this.wn_files) {
+    //   this.load_wordnet_files(pos, this.wn_files[pos][0], this.wn_files[pos][1]);
+    // }
   
     // fetch dictionary data from localStorage, then set up wordlists and exceptions
     for (var pos in this.wn_files) {
@@ -152,20 +173,21 @@ define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03
       return this.lems.length === 0;
     },
   
-    // set up dictionary data
-    load_wordnet_files: function(pos, list, exc) {
-      var key_idx = pos + this.idx;
-      this.open_file(key_idx, list);
-      var key_exc = pos + this.exc; 
-      this.open_file(key_exc, exc);
-    },
+    // // set up dictionary data
+    // load_wordnet_files: function(pos, list, exc) {
+    //   var key_idx = pos + this.idx;
+    //   this.open_file(key_idx, list);
+    //   var key_exc = pos + this.exc; 
+    //   this.open_file(key_exc, exc);
+    // },
   
     setup_dic_data: function(pos) {
       var self = this;
-      var key_idx = pos + this.idx;
-      _.each( this.fetch_data(key_idx), function(w) {
-        self.wordlists[pos][w] = w;
-      });
+      // var key_idx = pos + this.idx;
+      // _.each( this.fetch_data(key_idx), function(w) {
+      //   self.wordlists[pos][w] = w;
+      // });
+      
       var key_exc = pos + this.exc; 
       _.each( this.fetch_data(key_exc), function(item) {
         var w = item[0];
@@ -174,25 +196,25 @@ define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03
       });
     },
   
-    open_file: function(key, file) {
-      if (!localStorage.getItem(key)) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", file, false);
-        xhr.send();
-        var data = xhr.responseText;
-        this.store_data(key, data);
-      }
-    },
+    // open_file: function(key, file) {
+    //   if (!localStorage.getItem(key)) {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open("GET", file, false);
+    //     xhr.send();
+    //     var data = xhr.responseText;
+    //     this.store_data(key, data);
+    //   }
+    // },
   
-    store_data: function(key, data) {
-      localStorage.setItem(key, data);
-    },
+    // store_data: function(key, data) {
+    //   localStorage.setItem(key, data);
+    // },
   
-    fetch_data: function(key) {
-      var data = JSON.parse(localStorage.getItem(key));
-      return data;
-    },
-    // end of set up dictionary data
+    // fetch_data: function(key) {
+    //   var data = JSON.parse(localStorage.getItem(key));
+    //   return data;
+    // },
+    // // end of set up dictionary data
   
     base_forms: function(pos) {
       this.irregular_bases(pos);
