@@ -15,7 +15,7 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs(["jquery", "app/phrases", "json!src/lookup.json", "json!src/phrases.json"],
-function (  $,        phrases,       phraseData) {
+function (  $,        phrases,       lookupData,             phraseData) {
 
   phrases.printNormalizedPhraseData();
   
