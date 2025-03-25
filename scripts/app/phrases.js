@@ -68,7 +68,8 @@ function(lem,          phraseData) {
     line = line.replaceAll(/[,.()\/]/g, " ");
     
     // Make an array of all the words, without surrounding spaces
-    const words = line.split(/\s+/);
+    const words = line.split(/[\s]+/);
+    line.map((each) => each.trim());
     
     removeAcronyms(words);
 
