@@ -66,10 +66,13 @@ function(lem,          phraseData) {
   function pickyNormalize(line) {
     // Replace all punctuation with spaces
     line = line.replaceAll(/[,.()\/'-]/g, " ");
+
+    // Do a pass removing all invalid single letter words
+    line = line.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
     
     // Make an array of all the words, without surrounding spaces
     const words = line.split(/[\s]+/);
-    words.map((each) => each.trim());
+    words.map((each) => each.trim()); // Redundancy is key when you don't know what you are doing
     
     removeAcronyms(words);
 
