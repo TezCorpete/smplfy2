@@ -167,7 +167,7 @@ function(lem,          phraseData) {
     generateConnections(data);
 
     // Convert every element to JSON text
-    data.map((datum) => JSON.stringify(data))
+    data.map((datum) => JSON.stringify(data));
     
     console.log(`[\n  ${data.join(",\n  ")}\n]`);
   } // End of pNPD
