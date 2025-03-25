@@ -53,6 +53,49 @@ function(lem,          phraseData) {
       length = arr.length;
     } // End of loop
   } // End of removeAcronyms
+
+  /**
+   * Searches for all first-degree connections between phrases
+   * @param {Array} phrases - A list of lookup objects
+   * @return {void} - All changes to the objects are automatically applied
+   */
+  function generateConnections(phrases) {
+    const phrase = 0;
+    const meaning = 1;
+    const category = 2;
+    
+    for (let i = 0; i < phrases.length; i++) {
+      const curr = phrases[i];
+      curr.connections = [];
+
+      for (let j = 0; j < phrases.length; j++) {
+        // Don't execute on lookupObj
+        if (i === j) {
+          continue;
+        }
+        
+        const other = phrases[j];
+
+        // If any are true, a connection would be made. Better than a massive "or".
+        if ( (hasOwn(curr, "acronyms") && hasOwn(other, "acronyms"))     // If they have matching
+        && curr.acronyms.some((acr) => other.acronyms.includes(acr)) ) { // acronyms, connect them.
+          curr.connections.push({ "index": j });
+        } else if ( curr.lemmas[meaning].includes(other.lemmas[phrase])  // Or if either phrase is
+        || other.lemmas[meaning].includes(curr.lemmas[phrase]) ) {       // in the other's meaning
+          curr.connections.push({ "index": j });
+        } else if ( (curr.lemmas.length > 2 && other.lemmas.length > 2)  // Or if they have
+        && (curr.lemmas[category] == other.lemmas[category]) ) {         // matching categories
+          curr.connections.push({ "index": j });
+        } // End of "if" brick
+      } // end other loop
+
+      // Add the actual phrase to each of the connections
+      for (let k = 0; k < curr.connections.length; k++) {
+        const cnctn = curr.connections[k];
+        cnctn.phrase = phraseData[cnctn.index].phrase;
+      }
+    } // End curr loop
+  } // End of generate connections
   
   // **************************************************
   // Public
@@ -119,6 +162,10 @@ function(lem,          phraseData) {
       data.push(JSON.stringify(lookupObj));
     } // End of for
 
+    // This'll take a while, but I don't know enough
+    // big O to tell you just how inefficient it is.
+    generateConnections(data);
+    
     console.log(`[\n  ${data.join(",\n  ")}\n]`);
   } // End of pNPD
   
