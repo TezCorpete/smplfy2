@@ -58,64 +58,67 @@ function(lem,          phraseData) {
   // Public
   // **************************************************
   
+  /**
+   * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
+   * @param {String} line - A string that may contain some punctuation, which is to be ignored
+   * @return {String} - The original line, sans acronyms, punctuation, capitalization, and alternate word forms
+   */
+  pickyNormalize: function(line) {
+    // Replace all punctuation with spaces
+    line = line.replaceAll(/[,.()\/]/, " ");
+    
+    // Make an array of all the words, without surrounding spaces
+    const words = line.split(/[\s]+/);
+    
+    words.removeAcronyms();
+
+    // Remove capitalization for all words
+    const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
+
+    // Get one lemma for each word (Only ever choosing the first word should be fine, right?)
+    const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
+
+    // Return the line, a string once more
+    return normalized.join(" ");
+  },
+
+  /** TODO: Move to private after use
+   * Generates the normalized list of phrase data, printing it to the console to be copied.
+   */
+  printNormalizedPhraseData: function() {
+    // Start the list
+    const data = [];
+
+    // Run for all phrases
+    for (let i = 0; i < phraseData.length; i++) {
+      // Get the current phrase, instantiate object
+      const entry = phraseData[i];
+      const lookupObj = {};
+
+      // Lemmatize all info
+      const lemms = [];
+      lemms.push(pickyNormalize(entry.phrase));
+      lemms.push(pickyNormalize(entry.meaning));
+      // Only if category exists
+      if (Object.hasOwn(entry, "category")) {
+        lemms.push(pickyNormalize(entry.category));
+      }
+      lookupObj.lemmas = lemms;
+
+      // Add acronyms, if applicable
+      if (Object.hasOwn(entry, "acronyms")) {
+        lookupObj.acronyms = entry.acronyms;
+      }
+
+      lookupObj.index = i;
+      data.push(lookupObj);
+    } // End of for
+
+    console.log(JSON.stringify(data));
+  } // End of pNPD
+  
   return {
-    /**
-     * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
-     * @param {String} line - A string that may contain some punctuation, which is to be ignored
-     * @return {String} - The original line, sans acronyms, punctuation, capitalization, and alternate word forms
-     */
-    pickyNormalize: function(line) {
-      // Replace all punctuation with spaces
-      line = line.replaceAll(/[,.()\/]/, " ");
-      
-      // Make an array of all the words, without surrounding spaces
-      const words = line.split(/[\s]+/);
-      
-      words.removeAcronyms();
-
-      // Remove capitalization for all words
-      const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
-
-      // Get one lemma for each word (Only ever choosing the first word should be fine, right?)
-      const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
-
-      // Return the line, a string once more
-      return normalized.join(" ");
-    },
-
-    /** TODO: Move to private. Only used for setup of lookup.json
-     * Generates the normalized list of phrase data, printing it to the console to be copied.
-     */
-    printNormalizedPhraseData: function() {
-      // Start the list
-      const data = [];
-
-      // Run for all phrases
-      for (let i = 0; i < phraseData.length; i++) {
-        // Get the current phrase, instantiate object
-        const entry = phraseData[i];
-        const lookupObj = {};
-
-        // Lemmatize all info
-        const lemms = [];
-        lemms.push(pickyNormalize(entry.phrase));
-        lemms.push(pickyNormalize(entry.meaning));
-        // Only if category exists
-        if (Object.hasOwn(entry, "category")) {
-          lemms.push(pickyNormalize(entry.category));
-        }
-        lookupObj.lemmas = lemms;
-
-        // Add acronyms, if applicable
-        if (Object.hasOwn(entry, "acronyms")) {
-          lookupObj.acronyms = entry.acronyms;
-        }
-
-        lookupObj.index = i;
-        data.push(lookupObj);
-      } // End of for
-
-      console.log(JSON.stringify(data));
-    } // End of pNPD
-  } // End of return/public
+    "pickyNormalize": pickyNormalize,
+    "printNormalizedPhraseData": printNormalizedPhraseData
+  }
 }); // End of define
