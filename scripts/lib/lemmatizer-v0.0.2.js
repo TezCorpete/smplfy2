@@ -5,7 +5,7 @@
 * by Takafumi Yamano
 */
 
-define(["underscore"], function(_)) { // Added for UnderscoreJS dependency, 25/03/2025 dd/mm/yyyy
+define(["underscore"], function(_) { // Added for UnderscoreJS dependency, 25/03/2025 dd/mm/yyyy
   // extend String and define String#endsWith
   if (typeof String.endsWith !== "function") {
     String.prototype.endsWith = function(suffix) {
