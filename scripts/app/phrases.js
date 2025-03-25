@@ -78,7 +78,8 @@ function(lem,          phraseData) {
 
         // If any are true, a connection would be made. Better than a massive "or".
         if ( (Object.hasOwn(curr, "acronyms") && Object.hasOwn(other, "acronyms"))     // If they have matching
-        && curr.acronyms.some((acr) => other.acronyms.includes(acr)) ) {               // acronyms, connect them.
+        && ( curr.acronyms.some((acr) => other.acronyms.includes(acr))                 // acronyms, connect them.
+        || other.acronyms.includes(curr.lemmas[phrase]) ) ) {                          // Phrase might be there, too
           connections.push({ "index": j });
         } else if ( curr.lemmas[meaning].includes(other.lemmas[phrase])                // Or if either phrase is
         || other.lemmas[meaning].includes(curr.lemmas[phrase]) ) {                     // in the other's meaning
@@ -107,18 +108,18 @@ function(lem,          phraseData) {
   
   /**
    * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
-   * @param {String} line - A string that may contain some punctuation, which is to be ignored
-   * @return {String} - The original line, sans acronyms, punctuation, capitalization, and alternate word forms
+   * @param {String} text - A string that may contain some punctuation, which is to be ignored
+   * @return {String} - The original text, sans acronyms, punctuation, capitalization, and alternate word forms
    */
-  function pickyNormalize(line) {
+  function pickyNormalize(text) {
     // Replace all punctuation with spaces
-    line = line.replaceAll(/[,.()\/'-]/g, " ");
+    text = text.replaceAll(/[,.()\/'-]/g, " ");
 
     // Do a pass removing all invalid single letter words
-    line = line.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
+    text = text.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
     
     // Make an array of all the words, without surrounding spaces
-    const words = line.split(/[\s]+/);
+    const words = text.split(/[\s]+/);
     words.map((each) => each.trim()); // Redundancy is key when you don't know what you are doing
     
     removeAcronyms(words);
@@ -148,7 +149,12 @@ function(lem,          phraseData) {
 
       // Lemmatize all info
       const lemms = [];
-      lemms.push(pickyNormalize(entry.phrase));
+      // If the phrase is an acronym, don't normalize it
+      if (entry.phrase.isAcronym()) {
+        lemms.push(entry.phrase);
+      } else {
+        lemms.push(pickyNormalize(entry.phrase));
+      }
       lemms.push(pickyNormalize(entry.meaning));
       // Only if category exists
       if (Object.hasOwn(entry, "category")) {
