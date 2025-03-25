@@ -70,7 +70,7 @@ function(lem,          phraseData) {
     // Make an array of all the words, without surrounding spaces
     const words = line.split(/[\s]+/);
     
-    words.removeAcronyms();
+    removeAcronyms(words);
 
     // Remove capitalization for all words
     const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
