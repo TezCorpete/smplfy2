@@ -93,10 +93,12 @@ function(lem,          phraseData) {
       // Add the actual phrase to each of the connections
       for (let k = 0; k < connections.length; k++) {
         const cnctn = connections[k];
-        connections.phrase = phraseData[cnctn.index].phrase;
+        cnctn.phrase = phraseData[cnctn.index].phrase;
       }
-      
-      curr.connections = connections;
+
+      if (connections.length > 0) {
+        curr.connections = connections;
+      }
 
       console.log(JSON.stringify(curr));
     } // End curr loop
