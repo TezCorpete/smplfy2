@@ -112,10 +112,11 @@ function(lem,          phraseData) {
       }
 
       lookupObj.index = i;
-      data.push(lookupObj);
+      
+      data.push(JSON.stringify(lookupObj));
     } // End of for
 
-    console.log(JSON.stringify(data));
+    console.log(data.join(",\n"));
   } // End of pNPD
   
   return {
