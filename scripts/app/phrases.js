@@ -96,6 +96,8 @@ function(lem,          phraseData) {
       }
       
       curr.connections = connections;
+
+      console.log(JSON.stringify(curr));
     } // End curr loop
   } // End of generate connections
   
