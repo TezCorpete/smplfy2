@@ -66,7 +66,7 @@ function(lem,          phraseData) {
     
     for (let i = 0; i < phrases.length; i++) {
       const curr = phrases[i];
-      connections = [];
+      const connections = [];
 
       for (let j = 0; j < phrases.length; j++) {
         // Don't execute on curr
@@ -90,13 +90,12 @@ function(lem,          phraseData) {
         } // End of "if" brick
       } // end other loop
 
-      // Add the actual phrase to each of the connections
-      for (let k = 0; k < connections.length; k++) {
-        const cnctn = connections[k];
-        cnctn.phrase = phraseData[cnctn.index].phrase;
-      }
-
       if (connections.length > 0) {
+        // Add the actual phrase to each of the connections
+        for (let k = 0; k < connections.length; k++) {
+          const cnctn = connections[k];
+          cnctn.phrase = phraseData[cnctn.index].phrase;
+        }
         curr.connections = connections;
       }
 
