@@ -126,7 +126,7 @@ function(lem,          phraseData) {
 
     // Remove capitalization for all words
     const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
-
+    
     // Get one lemma for each word (Only ever choosing the first word should be fine, right?)
     const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
 
@@ -147,7 +147,7 @@ function(lem,          phraseData) {
       const entry = phraseData[i];
       const lookupObj = {};
 
-      // Lemmatize all info
+      // Lemmatize almost all info
       const lemms = [];
       // If the phrase is an acronym, don't normalize it
       if (entry.phrase.isAcronym()) {
