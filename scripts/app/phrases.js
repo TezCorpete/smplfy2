@@ -31,7 +31,7 @@ function(lem,          phraseData) {
    *   valid acronym characters / non-lowercase letters. ("[A-Z&]")
    */
   String.prototype.isAcronym = function() {
-    return this.test(/^[A-Z&]{2,}$/);
+    return (/^[A-Z&]{2,}$/).test(this);
   }
   
   /**
