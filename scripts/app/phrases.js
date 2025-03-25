@@ -119,7 +119,7 @@ function(lem,          phraseData) {
       data.push(JSON.stringify(lookupObj));
     } // End of for
 
-    console.log(`[\n${data.join(",\n")}\n]`);
+    console.log(`[\n  ${data.join(",\n  ")}\n]`);
   } // End of pNPD
   
   return {
