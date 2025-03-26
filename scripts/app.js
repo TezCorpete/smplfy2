@@ -14,34 +14,35 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(["jquery", "app/phrases", "json!src/lookup.json", "json!src/phrases.json"],
-function (  $,        phrases,       lookupData,             phraseData) {
-
-  phrases.printNormalizedPhraseData();
+requirejs(["jquery", "app/phrases"],
+function (  $,        phrases) {
   
   function addRow(event) {
-    // If addRow was called by an entry
-    if (event !== null && $(event.target).hasClass("entry")) {
-      // Make the clicked entry the only one highlighted
-      const entry = $(event.target);
-      entry.css("outline", "2px solid green");
-      entry.siblings().css("outline", "none");
-      
-      // Remove all following rows
-      if (entry.parent().nextAll().length !== 0) {
-        // Slide each up then delete it
-        entry.parent().nextAll().each( function() {
-          $(this).slideUp(300, $(this).remove);
-        });
-      } // End row removal
-    } // End entry-call operations
-    
     // Create the row
     const newRow = $("<div></div>").attr("class", "row");
     $("#canvas").append(newRow);
+    
+    // If addRow was called by an entry
+    if (event !== null && $(event.target).hasClass("entry")) {
+      // Make the clicked entry the only one, and highlighted
+      const entry = $(event.target);
+      entry.css("outline", "2px solid green");
+      entry.siblings().remove();
+
+      // Remove all following rows if there are any
+      if (entry.parent().nextAll().length !== 0) {
+        // Slide each up then delete it
+        entry.parent().nextAll().each( function() {
+          $(this).slideUp(100, $(this).remove);
+        });
+      } // End row removal
+
+      // Generate entries for each connection
+      allConnections( entry.data("lookup") ).forEach( (conn) => addEntry(conn) );
+    } // End entry-call operations
   } // End addRow
   
-  function addEntry(event) {
+  function addEntry(lookupObj) {
     // Add a row if there aren't any already
     if ($(".row").length === 0) {
       addRow(null);
@@ -49,13 +50,25 @@ function (  $,        phrases,       lookupData,             phraseData) {
     
     // Create the entry
     const newEntry = $("<div></div>").attr("class", "entry");
-    newEntry.text(event.data.info);
+    newEntry.data( "lookup", lookupObj );
+    newEntry.text( phrases.fetch(lookupObj.index).phrase );
     $(".row").last().append(newEntry);
   } // End addEntry
+
+  function allConnections(lookupObj) {
+    const connections = lookupObj.connections;
+    for (let i = 0; i < connections.length; i++) {
+      connections[i] = phrases.fetchLookup(connections[i].index);
+    }
+    
+    return connections;
+  }
   
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    $("#title").on("click", {info: "temp"}, addEntry);
+    const mostLikely = phrases.fetchLookup(0);
+    addEntry(mostLikely);
+    
     $("#canvas").on("click", ".entry", addRow);
   });
 }); // End of main logic
