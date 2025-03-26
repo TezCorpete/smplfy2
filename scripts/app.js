@@ -62,6 +62,10 @@ function (  $,        phrases) {
   } // End addEntry
 
   function allConnections(lookupObj) {
+    if ( !Object.hasOwn(lookupObj, "connections") ) {
+      return; // Exit early, without raising an error
+    }
+    
     const connections = lookupObj.connections;
     for (let i = 0; i < connections.length; i++) {
       connections[i] = phrases.fetchLookup(connections[i].index);
