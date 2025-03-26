@@ -79,6 +79,7 @@ function (  $,        phrases) {
       console.log(lookup);
     }
 
+    console.log(full);
     return full;
   }
   
