@@ -44,7 +44,7 @@ function (  $,        phrases) {
     $("#canvas").append(newRow);
 
     if (entries.length !== 0) {
-      entries.forEach(addEntry(this));
+      entries.forEach(addEntry);
     }
   } // End addRow
   
@@ -56,9 +56,9 @@ function (  $,        phrases) {
     
     // Create the entry
     const newEntry = $("<div></div>").attr("class", "entry");
-    newEntry.data( "lookup", lookupObj );
     const txt = phrases.fetch( lookupObj.index );
     newEntry.text( txt.phrase );
+    newEntry.data( "lookup", lookupObj );
     $(".row").last().append(newEntry);
   } // End addEntry
 
