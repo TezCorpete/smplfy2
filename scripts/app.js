@@ -39,8 +39,9 @@ function (  $,        phrases) {
       } // End row removal
 
       // Save each connection as a full lookup object
-      const dataObj = entry.data().lookup;
-      entries.concat( expandConnections(dataObj) );
+      const connections = expandConnections( entry.data().lookup );
+      console.log(connections);
+      entries.concat( connections );
       console.log(entries);
     } // End entry-call operations
     
