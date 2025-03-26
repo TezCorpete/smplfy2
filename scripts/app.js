@@ -57,7 +57,7 @@ function (  $,        phrases) {
     // Create the entry
     const newEntry = $("<div></div>").attr("class", "entry");
     newEntry.data( "lookup", lookupObj );
-    newEntry.text( phrases.fetch(lookupObj.index).phrase );
+    newEntry.text( (phrases.fetch( lookupObj.index )).phrase );
     $(".row").last().append(newEntry);
   } // End addEntry
 
