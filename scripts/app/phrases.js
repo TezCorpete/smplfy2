@@ -9,6 +9,9 @@ function(lem,          phraseData,              lookupData) {
   const lemmatizer = new lem.Lemmatizer();
 
   // json.js plugin automatically parses, so no parsing needed
+
+  let mostLikely;
+  let highestRelevance = 0;
   
   // **************************************************
   // Internal/Private (Not included in return statement)
@@ -161,7 +164,13 @@ function(lem,          phraseData,              lookupData) {
     generateConnections(lookup);
 
     for (let i = 0; i < lookup.length; i++) {
-      lookup[i].relevance = calcRelevance(lookup[i]);
+      const curr = lookup[i];
+      curr.relevance = calcRelevance(curr);
+
+      if (curr.relevance > highestRelevance) {
+        highestRelevance = curr.relevance;
+        mostLikely = curr;
+      }
     }
     
     // Convert every element to JSON text
@@ -223,6 +232,7 @@ function(lem,          phraseData,              lookupData) {
   return {
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,
-    "fetchLookup"   : fetchLookup
+    "fetchLookup"   : fetchLookup,
+    "mostLikely"    : mostLikely
   };
 }); // End of define
