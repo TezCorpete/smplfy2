@@ -13,18 +13,20 @@ File sources:
   - dict folder (scripts/lib/dict/*): All the of these JSON files are included on Takafumi Yamano's GitHub page under a folder of the same name, all being dependencies of Lemmatizer
   - src folder (scripts/src/*): JSON files containing webscraped phrases restructured for use in this program or any relevant info used by the program
     - phrases.json Object Structure:
-      - phrases: Single object containing all 508 phrases (may be removed, leaving the JSON file as a list)
+      - Document takes the form of a list.
         - phrase: A single word, acronym, or phrase commonly used in insurance
         - meaning: A definition of the phrase, occasionally including an example (infrequently enough not to be separated)
         - category: Extra information separated from the phrase by the site the phrases were scraped from (open online resource, TODO: Add site name, url)
-                  - NOTICE: If "category" appeared in "acronyms", "category" was removed during processing.
-                          Not all phrases contained a category at the time of scraping.
+          - NOTICE: If "category" appeared in "acronyms", "category" was removed during processing. Most phrases did not contain a category at the time of scraping.
         - acronyms: A list of acronyms (Strings of consecutive capital letters / non-punctuation symbols, for example the ampersand / "&").
-                  - NOTICE: If an acronym was found that matches "phrase" exactly, that acronym was removed during processing.
-                          "acronyms" is not included if none were found.
-                  - WARNING: At least one phrase object contains acronyms from an example contained in the "meaning" attribute, and may or may not result in false positives.
-    - Tenative structure for a look-up table yet to be generated
-      - entries: Single object in similar format to phrases.json's phrases object. Ordered by length of the first element in "lemmas" (the phrase), longest to shortest. Phrases of identical length are alphabetical
-        - lemmas: Contains list with the lemmatized version of the phrase, followed by every included acronym. A better name for this attribute exists, I just can't think of it.
-                - NOTICE: If the phrase IS an acronym, it still appears first, but remains unchanged (like all other acronyms)
+          - NOTICE: If an acronym was found that matches "phrase" exactly, that acronym was removed during processing. "acronyms" is not included if none were found.
+          - WARNING: At least one phrase object contains fictional acronyms from an example contained in the "meaning" attribute, and may or may not result in false positives.
+    - lookup.json Object Structure
+      - Document takes the form of a list
+        - lemmas: Contains list with the lemmatized version of the phrase, followed by the lemmatized meaning and then 
+          - NOTICE: If the phrase is an acronym, it still appears first, but remains unchanged (like all other acronyms)
+        - acronyms: An array of all acronyms found in the phrase/meaning, now separate.
         - index: The index of the phrase the entry is associated with
+        - connections: A list of phrase objects
+          - index: The index of the original phrase of the matched lookup entry, from phrases.json
+          - phrase: The phrase, acronym or otherwise, unedited and sourced from phrases.json based on "index"
