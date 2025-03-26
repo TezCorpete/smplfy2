@@ -39,7 +39,7 @@ function (  $,        phrases) {
 
       // Save each connection as a full lookup object
       entries.concat( expandConnections(entry.data( "lookup" )) )
-      
+      console.log(entries);
     } // End entry-call operations
     
     $("#canvas").append(newRow);
