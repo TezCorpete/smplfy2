@@ -109,9 +109,22 @@ function(lem,          phraseData) {
    */
   function mostCommon(a, b) {
     // Not a true comparison of relevance, but close enough.
-    const aInfo = a.lemmas.length + a.acronyms.length + a.connections.length;
-    const bInfo = b.lemmas.length + b.acronyms.length + b.connections.length;
-
+    let aInfo = a.lemmas.length;
+    if (Object.hasOwn(a, "acronyms")) {
+      aInfo += a.acronyms.length;
+    }
+    if (Object.hasOwn(a, "connections")) {
+      aInfo += a.connections.length;
+    }
+    
+    let bInfo = b.lemmas.length;
+    if (Object.hasOwn(b, "acronyms")) {
+      bInfo += b.acronyms.length;
+    }
+    if (Object.hasOwn(b, "connections")) {
+      bInfo += b.connections.length;
+    }
+    
     // Negative means a, positive means b
     const first = bInfo - aInfo;
 
