@@ -40,7 +40,6 @@ function (  $,        phrases) {
 
       // Save each connection as a full lookup object
       const dataObj = entry.data().lookup;
-      console.log(dataObj);
       entries.concat( expandConnections(dataObj) );
       console.log(entries);
     } // End entry-call operations
@@ -72,9 +71,12 @@ function (  $,        phrases) {
     }
 
     const full = [];
-    for (let i = 0; i < entry.connections.length; i++) {
-      const lookup = phrases.fetchLookup( entry.connections[i].index );
+    const connections = entry.connections;
+    for (let i = 0; i < connections.length; i++) {
+      const lookup = phrases.fetchLookup( connections[i].index );
       full.push(lookup);
+
+      console.log(lookup);
     }
 
     return full;
