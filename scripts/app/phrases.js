@@ -199,7 +199,7 @@ function(lem,          phraseData) {
     // big O to tell you just how inefficient it is.
     generateConnections(lookup);
 
-    lookUp.sort(mostCommon);
+    lookup.sort(mostCommon);
     
     // Convert every element to JSON text
     const data = lookup.map((datum) => JSON.stringify(datum));
