@@ -38,7 +38,7 @@ function (  $,        phrases) {
       } // End row removal
 
       // Save each connection as a full lookup object
-      entries.push( expandConnections(entry.data( "lookup" )) )
+      entries.concat( expandConnections(entry.data( "lookup" )) )
       
     } // End entry-call operations
     
