@@ -13,6 +13,14 @@ function(lem,          phraseData,              lookupData) {
   let mostLikely;
   let highestRelevance = 0;
   
+  for (let i = 0; i < lookupData.length; i++) {
+      const curr = lookupData[i];
+      if (curr.relevance > highestRelevance) {
+        highestRelevance = curr.relevance;
+        mostLikely = curr;
+      }
+    }
+  
   // **************************************************
   // Internal/Private (Not included in return statement)
   // **************************************************
