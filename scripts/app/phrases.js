@@ -100,41 +100,22 @@ function(lem,          phraseData,              lookupData) {
 
   /**
    * Compares how likely a lookup Object is to appear
-   * @param {Array} phrases - A list of lookup objects
-   * @return {Number} - A positive value means b is before a,
-   *                    and vice versa for a negative value.
+   * @param {Object} entry - A lookup object
+   * @return {Number} - the calculated relevance
    */
-  function mostCommon(a, b) {
+  function calcRelevance(entry) {
     // Not a true comparison of relevance, but close enough.
-    let aInfo = a.lemmas.length;
-    if (Object.hasOwn(a, "acronyms")) {
-      aInfo += a.acronyms.length;
-    }
-    if (Object.hasOwn(a, "connections")) {
-      aInfo += a.connections.length;
-    }
-    a.relevance = aInfo;
+    let relevance = entry.lemmas.length;
     
-    let bInfo = b.lemmas.length;
-    if (Object.hasOwn(b, "acronyms")) {
-      bInfo += b.acronyms.length;
+    if (Object.hasOwn(entry, "acronyms")) {
+      relevance += entry.acronyms.length;
     }
-    if (Object.hasOwn(b, "connections")) {
-      bInfo += b.connections.length;
-    }
-    b.relevance = bInfo;
     
-    // Negative means a, positive means b
-    const first = bInfo - aInfo;
+    if (Object.hasOwn(entry, "connections")) {
+      relevance += entry.connections.length;
+    }
 
-    // If there is a conflict, just order them alphabetically
-    if (first === 0) {
-      // A fast alphabetic comparison
-      const enCollater = new Intl.Collator("en");
-      return enCollater.compare(a.lemmas[0], b.lemmas[0]); // 0th lemma is phrase
-    } else {
-      return first;
-    }
+    return relevance;
   }
   
   /**
@@ -179,7 +160,9 @@ function(lem,          phraseData,              lookupData) {
     // big O to tell you just how inefficient it is.
     generateConnections(lookup);
 
-    lookup.sort(mostCommon);
+    for (let i = 0; i < lookup.length; i++) {
+      lookup[i].relevance = calcRelevance(lookup[i]);
+    }
     
     // Convert every element to JSON text
     const data = lookup.map((datum) => JSON.stringify(datum));
