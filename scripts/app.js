@@ -79,7 +79,9 @@ function (  $,        phrases) {
   
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    addEntry(phrases.mostLikely());
+    phrases.printNormalizedPhraseData();
+    
+    addEntry(phrases.mostLikely);
     
     $("#canvas").on("click", ".entry", addRow);
   });
