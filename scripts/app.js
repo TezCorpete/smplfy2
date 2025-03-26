@@ -26,6 +26,9 @@ function (  $,        phrases) {
     if (event !== null && $(event.target).hasClass("entry")) {
       // Make the clicked entry the only one, and highlighted
       const entry = $(event.target);
+      
+      console.log(entry);
+      
       entry.css("outline", "2px solid green");
       entry.siblings().remove();
 
@@ -44,8 +47,11 @@ function (  $,        phrases) {
     
     $("#canvas").append(newRow);
 
+    console.log(entries);
+    
     for (let i = 0; i < entries.length; i++) {
       addEntry( entries[i] );
+      console.log(entries[i]);
     }
   } // End addRow
   
@@ -65,7 +71,7 @@ function (  $,        phrases) {
 
   function expandConnections(entry) {
     if ( !Object.hasOwn(entry, "connections") ) {
-        return;
+      return;
     }
 
     const full = [];
