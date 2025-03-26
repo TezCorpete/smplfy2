@@ -20,7 +20,7 @@ function (  $,        phrases) {
   function addRow(event) {
     // Create the row
     const newRow = $("<div></div>").attr("class", "row");
-    const entries = [];
+    let entries = [];
     
     // If addRow was called by an entry
     if (event !== null && $(event.target).hasClass("entry")) {
@@ -39,10 +39,7 @@ function (  $,        phrases) {
       } // End row removal
 
       // Save each connection as a full lookup object
-      const connections = expandConnections( entry.data().lookup );
-      console.log(connections);
-      entries.concat( connections );
-      console.log(entries);
+      entries = expandConnections( entry.data().lookup );
     } // End entry-call operations
     
     $("#canvas").append(newRow);
@@ -76,11 +73,8 @@ function (  $,        phrases) {
     for (let i = 0; i < connections.length; i++) {
       const lookup = phrases.fetchLookup( connections[i].index );
       full.push(lookup);
-
-      console.log(lookup);
     }
 
-    console.log(full);
     return full;
   }
   
