@@ -43,8 +43,8 @@ function (  $,        phrases) {
     
     $("#canvas").append(newRow);
 
-    if (entries.length !== 0) {
-      entries.forEach( (e) => addEntry(e) );
+    for (let i = 0; i < entries.length) {
+      addEntry( entries[i] );
     }
   } // End addRow
   
