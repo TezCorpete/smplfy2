@@ -39,8 +39,10 @@ function (  $,        phrases) {
       } // End row removal
 
       // Save each connection as a full lookup object
-      console.log(entry.data().lookup);
-      entries.concat( expandConnections(entry.data().lookup) )
+      const dataObj = entry.data().lookup;
+      console.log(dataObj);
+      entries.concat( expandConnections(dataObj) );
+      console.log(entries);
     } // End entry-call operations
     
     $("#canvas").append(newRow);
