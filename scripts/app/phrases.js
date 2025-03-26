@@ -1,8 +1,5 @@
-// TODO: Make a one-time-use function to lemmatize the phrases
-// and make lists of identifying words/phrases. Then, calculate
-// any connections between them.
 
-define(["lemmatizer", "json!src/phrases.json"], 
+define(["lemmatizer", "json!src/phrases.json", "json!src/lookup.json"], 
 function(lem,          phraseData) {
   // **************************************************
   // Setup
@@ -140,39 +137,7 @@ function(lem,          phraseData) {
     }
   }
   
-  // **************************************************
-  // Public
-  // **************************************************
-  
   /**
-   * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
-   * @param {String} text - A string that may contain some punctuation, which is to be ignored
-   * @return {String} - The original text, sans acronyms, punctuation, capitalization, and alternate word forms
-   */
-  function pickyNormalize(text) {
-    // Replace all punctuation with spaces
-    text = text.replaceAll(/[,.()\/'-]/g, " ");
-
-    // Do a pass removing all invalid single letter words
-    text = text.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
-    
-    // Make an array of all the words, without surrounding spaces
-    const words = text.split(/[\s]+/);
-    words.map((each) => each.trim()); // Redundancy is key when you don't know what you are doing
-    
-    removeAcronyms(words);
-
-    // Remove capitalization for all words
-    const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
-    
-    // Get one lemma for each word (Only ever choosing the first word should be fine, right?)
-    const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
-
-    // Return the line, a string once more
-    return normalized.join(" ").trim();
-  }
-
-  /** TODO: Move to private after use
    * Generates the normalized list of phrase data, printing it to the console to be copied.
    */
   function printNormalizedPhraseData() {
@@ -222,8 +187,39 @@ function(lem,          phraseData) {
     console.log(`[\n  ${data.join(",\n  ")}\n]`);
   } // End of pNPD
   
+  // **************************************************
+  // Public
+  // **************************************************
+  
+  /**
+   * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
+   * @param {String} text - A string that may contain some punctuation, which is to be ignored
+   * @return {String} - The original text, sans acronyms, punctuation, capitalization, and alternate word forms
+   */
+  function pickyNormalize(text) {
+    // Replace all punctuation with spaces
+    text = text.replaceAll(/[,.()\/'-]/g, " ");
+
+    // Do a pass removing all invalid single letter words
+    text = text.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
+    
+    // Make an array of all the words, without surrounding spaces
+    const words = text.split(/[\s]+/);
+    words.map((each) => each.trim()); // Redundancy is key when you don't know what you are doing
+    
+    removeAcronyms(words);
+
+    // Remove capitalization for all words
+    const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
+    
+    // Get one lemma for each word (Only ever choosing the first word should be fine, right?)
+    const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
+
+    // Return the line, a string once more
+    return normalized.join(" ").trim();
+  }
+  
   return {
-    "pickyNormalize": pickyNormalize,
-    "printNormalizedPhraseData": printNormalizedPhraseData
+    "pickyNormalize": pickyNormalize
   }
 }); // End of define
