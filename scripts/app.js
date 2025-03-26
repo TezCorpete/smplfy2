@@ -27,8 +27,6 @@ function (  $,        phrases) {
       // Make the clicked entry the only one, and highlighted
       const entry = $(event.target);
       
-      console.log(entry.data("lookup"));
-      
       entry.css("outline", "2px solid green");
       entry.siblings().remove();
 
@@ -41,7 +39,8 @@ function (  $,        phrases) {
       } // End row removal
 
       // Save each connection as a full lookup object
-      entries.concat( expandConnections(entry.data( "lookup" )) )
+      console.log(entry.data().lookup);
+      entries.concat( expandConnections(entry.data().lookup) )
     } // End entry-call operations
     
     $("#canvas").append(newRow);
@@ -74,9 +73,6 @@ function (  $,        phrases) {
     for (let i = 0; i < entry.connections.length; i++) {
       const lookup = phrases.fetchLookup( entry.connections[i].index );
       full.push(lookup);
-
-      console.log(lookup);
-      
     }
 
     return full;
