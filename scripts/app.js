@@ -20,6 +20,7 @@ function (  $,        phrases) {
   function addRow(event) {
     // Create the row
     const newRow = $("<div></div>").attr("class", "row");
+    const entries = [];
     
     // If addRow was called by an entry
     if (event !== null && $(event.target).hasClass("entry")) {
@@ -36,11 +37,15 @@ function (  $,        phrases) {
         });
       } // End row removal
 
-      // Generate entries for each connection
-      allConnections( entry.data("lookup") ).forEach( (conn) => addEntry(conn) );
+      // Save each connection as a full object
+      entries.push(allConnections( entry.data("lookup") ));
     } // End entry-call operations
     
     $("#canvas").append(newRow);
+
+    if (entries.length !== 0) {
+      entries.forEach( (entry) => addEntry(entry) );
+    }
   } // End addRow
   
   function addEntry(lookupObj) {
