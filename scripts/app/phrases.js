@@ -230,7 +230,7 @@ function(lem,          phraseData,              lookupData) {
   }
   
   return {
-    "printNormalizePhraseData": printNormalizedPhraseData,
+    "printNormalizedPhraseData": printNormalizedPhraseData,
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,
     "fetchLookup"   : fetchLookup,
