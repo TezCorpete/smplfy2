@@ -20,7 +20,6 @@ function (  $,        phrases) {
   function addRow(event) {
     // Create the row
     const newRow = $("<div></div>").attr("class", "row");
-    $("#canvas").append(newRow);
     
     // If addRow was called by an entry
     if (event !== null && $(event.target).hasClass("entry")) {
@@ -40,6 +39,8 @@ function (  $,        phrases) {
       // Generate entries for each connection
       allConnections( entry.data("lookup") ).forEach( (conn) => addEntry(conn) );
     } // End entry-call operations
+    
+    $("#canvas").append(newRow);
   } // End addRow
   
   function addEntry(lookupObj) {
