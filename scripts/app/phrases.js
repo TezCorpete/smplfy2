@@ -1,6 +1,6 @@
 
 define(["lemmatizer", "json!src/phrases.json", "json!src/lookup.json"], 
-function(lem,          phraseData) {
+function(lem,          phraseData,              lookupData) {
   // **************************************************
   // Setup
   // **************************************************
@@ -218,8 +218,28 @@ function(lem,          phraseData) {
     // Return the line, a string once more
     return normalized.join(" ").trim();
   }
+
+  /**
+   * Fetches a phrase at the given position from lookup
+   * @param {int} index - The index of the phrase to be fetched in lookup.json (NOT index attr)
+   * @return {Object} - The lookup object at that index
+   */
+  function fetchLookup(index) {
+    return lookupData[index];
+  }
+
+  /**
+   * Fetches a phrase at the given position from phrases
+   * @param {int} index - The index of the phrase to be fetched in phrases.json 
+   * @return {Object} - The phrase object at that index
+   */
+  function fetch(index) {
+    return phraseData[index];
+  }
   
   return {
-    "pickyNormalize": pickyNormalize
-  }
+    "pickyNormalize": pickyNormalize,
+    "fetch"         : fetch,
+    "fetchLookup"   : fetchLookup
+  };
 }); // End of define
