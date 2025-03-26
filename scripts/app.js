@@ -69,7 +69,7 @@ function (  $,        phrases) {
     }
 
     const full = [];
-    for (let i = 0; i < entry.connections.length: i++) {
+    for (let i = 0; i < entry.connections.length; i++) {
       const lookup = phrases.fetchLookup( entry.connections[i].index );
       full.push(lookup);
     }
