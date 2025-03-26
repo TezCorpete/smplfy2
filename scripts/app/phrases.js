@@ -53,7 +53,7 @@ function(lem,          phraseData) {
       length = arr.length;
     } // End of loop
   } // End of removeAcronyms
-
+  
   /**
    * Searches for all first-degree connections between phrases
    * @param {Array} phrases - A list of lookup objects
@@ -100,6 +100,30 @@ function(lem,          phraseData) {
       }
     } // End curr loop
   } // End of generate connections
+
+  /**
+   * Compares how likely a lookup Object is to appear
+   * @param {Array} phrases - A list of lookup objects
+   * @return {Number} - A positive value means b is before a,
+   *                    and vice versa for a negative value.
+   */
+  function mostCommon(a, b) {
+    // Not a true comparison of relevance, but close enough.
+    const aInfo = a.lemmas.length + a.acronyms.length + a.connections.length;
+    const bInfo = b.lemmas.length + b.acronyms.length + b.connections.length;
+
+    // Negative means a, positive means b
+    const first = bInfo - aInfo;
+
+    // If there is a conflict, just order them alphabetically
+    if (first === 0) {
+      // A fast alphabetic comparison
+      const enCollater = new Intl.Collator("en");
+      return enCollater.compare(a.lemmas[0], b.lemmas[0]); // 0th lemma is phrase
+    } else {
+      return first;
+    }
+  }
   
   // **************************************************
   // Public
@@ -175,6 +199,8 @@ function(lem,          phraseData) {
     // big O to tell you just how inefficient it is.
     generateConnections(lookup);
 
+    lookUp.sort(mostCommon);
+    
     // Convert every element to JSON text
     const data = lookup.map((datum) => JSON.stringify(datum));
     
