@@ -44,7 +44,7 @@ function (  $,        phrases) {
     $("#canvas").append(newRow);
 
     if (entries.length !== 0) {
-      entries.forEach(addEntry);
+      entries.forEach(addEntry(this));
     }
   } // End addRow
   
