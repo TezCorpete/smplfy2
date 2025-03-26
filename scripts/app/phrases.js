@@ -116,6 +116,7 @@ function(lem,          phraseData) {
     if (Object.hasOwn(a, "connections")) {
       aInfo += a.connections.length;
     }
+    a.relevance = aInfo;
     
     let bInfo = b.lemmas.length;
     if (Object.hasOwn(b, "acronyms")) {
@@ -124,6 +125,7 @@ function(lem,          phraseData) {
     if (Object.hasOwn(b, "connections")) {
       bInfo += b.connections.length;
     }
+    b.relevance = bInfo;
     
     // Negative means a, positive means b
     const first = bInfo - aInfo;
