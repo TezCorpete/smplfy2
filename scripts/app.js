@@ -37,8 +37,9 @@ function (  $,        phrases) {
         });
       } // End row removal
 
-      // Save each connection as a full object
-      entries.push(allConnections( entry.data("lookup") ));
+      // Save each connection as a full lookup object
+      entries.push( expandConnections(entry.data( "lookup" )) )
+      
     } // End entry-call operations
     
     $("#canvas").append(newRow);
@@ -62,23 +63,23 @@ function (  $,        phrases) {
     $(".row").last().append(newEntry);
   } // End addEntry
 
-  function allConnections(lookupObj) {
-    if ( !Object.hasOwn(lookupObj, "connections") ) {
-      return; // Exit early, without raising an error
+  function expandConnections(entry) {
+    if ( !Object.hasOwn(entry, "connections") ) {
+        return;
     }
-    
-    const connections = lookupObj.connections;
-    for (let i = 0; i < connections.length; i++) {
-      connections[i] = phrases.fetchLookup(connections[i].index);
+
+    const full = [];
+    for (let i = 0; i < entry.connections.length: i++) {
+      const lookup = phrases.fetchLookup( entry.connections[i].index );
+      full.push(lookup);
     }
-    
-    return connections;
+
+    return full;
   }
   
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    const mostLikely = phrases.fetchLookup(0);
-    addEntry(mostLikely);
+    addEntry(phrases.mostLikely());
     
     $("#canvas").on("click", ".entry", addRow);
   });
