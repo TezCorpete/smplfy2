@@ -37,7 +37,7 @@ function (  $,        phrases) {
           $(this).slideUp(100, $(this).remove);
         });
       } // End row removal
-      
+
       // Refresh the data; Removing the elements seems to mess with it
       entry.data( "lookup", phrases.fetchLookup(entry.data().lookup.index) );
 
@@ -51,6 +51,21 @@ function (  $,        phrases) {
       addEntry( entries[i] );
     }
   } // End addRow
+
+  function expandConnections(entry) {
+    if ( !Object.hasOwn(entry, "connections") ) {
+      return;
+    }
+
+    const full = [];
+    const connections = entry.connections;
+    for (let i = 0; i < connections.length; i++) {
+      const lookup = phrases.fetchLookup( connections[i].index );
+      full.push(lookup);
+    }
+
+    return full;
+  }
   
   function addEntry(lookupObj) {
     // Add a row if there aren't any already
@@ -89,21 +104,6 @@ function (  $,        phrases) {
     });
     
     return (!included);
-  }
-
-  function expandConnections(entry) {
-    if ( !Object.hasOwn(entry, "connections") ) {
-      return;
-    }
-
-    const full = [];
-    const connections = entry.connections;
-    for (let i = 0; i < connections.length; i++) {
-      const lookup = phrases.fetchLookup( connections[i].index );
-      full.push(lookup);
-    }
-
-    return full;
   }
   
   // When the document has loaded, add event listeners
