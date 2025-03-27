@@ -69,7 +69,7 @@ function (  $,        phrases) {
     const realPhrase = phrases.fetch( lookupObj.index ).phrase;
     console.log( realPhrase );
     $(".entry").each( function() {
-      const thisPhrase = $(this).text;
+      const thisPhrase = $(this).text();
       console.log( "    " + thisPhrase );
 
       if ( realPhrase === thisPhrase ) {
