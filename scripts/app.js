@@ -125,6 +125,8 @@ function (  $,        phrases) {
 
   // When the document has loaded, add event listeners
   $(document).ready(function() {
+    $("#def-table").hide();
+
     addEntry(phrases.mostLikely); // For testing
     
     $("#canvas").on("click", ".entry", function( event ) {
