@@ -30,6 +30,7 @@ function (  $,        phrases) {
       const entry = $(event.target);
       
       entry.css("outline", "2px solid green");
+      removeFromAddedEntries(entry.siblings());
       entry.siblings().remove();
 
       // Remove all following rows if there are any
