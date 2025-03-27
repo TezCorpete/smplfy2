@@ -107,11 +107,11 @@ function (  $,        phrases) {
       $("#def-tbl-cat").show();
       $("#def-tbl-cat").text( phraseData.category );
 
-      $("def-tbl-phrase").css("grid-row", "2 / span 2");
+      $("def-tbl-phrase").css("grid-row", "3 / span 1");
     } else {
       $("def-tbl-cat").hide();
 
-      $("def-tbl-phrase").css("grid-row", "3 / span 1");
+      $("def-tbl-phrase").css("grid-row", "2 / span 2");
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );
