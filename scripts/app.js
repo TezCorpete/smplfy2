@@ -35,7 +35,7 @@ function (  $,        phrases) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
           $(this).empty(); // Removes all children from this & .data cache
-          $(this).slideUp(100, $(this).remove);
+          $(this).remove());
         }); // End .nextAll
       } // End row removal
 
