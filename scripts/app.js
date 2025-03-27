@@ -28,7 +28,8 @@ function (  $,        phrases) {
       const entry = $(event.target);
       
       entry.css("outline", "2px solid green");
-      entry.siblings().remove();
+      const removed = entry.siblings().remove();
+      console.log( removed );
 
       // Remove all following rows if there are any
       if (entry.parent().nextAll().length !== 0) {
