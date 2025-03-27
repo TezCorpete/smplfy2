@@ -72,7 +72,7 @@ function (  $,        phrases) {
       const thisPhrase = $(this).text();
       console.log( "    " + thisPhrase );
 
-      if ( realPhrase === thisPhrase ) {
+      if ( realPhrase.valueOf() == thisPhrase.valueOf() ) {
         return false;
       }
     });
