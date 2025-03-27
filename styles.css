@@ -74,7 +74,7 @@ button {
 #def-tbl-phrase {
   grid-column: 1 / span 1;
   grid-row: 3 / span 1;
-  background-color: lightslategray;
+  background-color: lightgray;
   padding: inherit;
   height: 75px;
   text-wrap: wrap;
