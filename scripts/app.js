@@ -123,7 +123,7 @@ function (  $,        phrases) {
   }
 
   function addCategory(cat) {
-    const category = $("<div></div>").attr("id", "#def-tbl-cat");
+    const category = $("<div></div>").attr("id", "def-tbl-cat");
     category.text( cat );
     
     $("#def-tbl").append(category);
