@@ -40,6 +40,8 @@ function (  $,        phrases) {
 
       // Refresh the data; Removing the elements seems to mess with it
       entry.data( "lookup", phrases.fetchLookup(entry.data().lookup.index) );
+      
+      console.log(entry.data().lookup.connections);
 
       // Save each connection as a full lookup object
       entries = expandConnections( entry.data().lookup );
@@ -50,6 +52,13 @@ function (  $,        phrases) {
     for (let i = 0; i < entries.length; i++) {
       addEntry( entries[i] );
     }
+
+    const included = [];
+    $(".entry").each( function() {
+      included.push( $(this).text().valueOf() );
+    });
+
+    console.log(included);
   } // End addRow
 
   function expandConnections(entry) {
@@ -80,13 +89,6 @@ function (  $,        phrases) {
       newEntry.text( real.phrase );
       newEntry.data( "lookup", lookupObj );
       $(".row").last().append(newEntry);
-
-      const included = [];
-      $(".entry").each( function() {
-        included.push( $(this).text().valueOf() );
-      });
-
-      console.log(included);
     } // End canvas check for entry
   } // End addEntry
 
