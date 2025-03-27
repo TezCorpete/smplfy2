@@ -52,7 +52,7 @@ button {
   grid-template-columns: 100px 250px;
   grid-gap: 2px;
   padding: 3px;
-  display: table;
+  display: none;
   border: 1px solid black;
 }
 

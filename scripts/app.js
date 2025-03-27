@@ -101,7 +101,7 @@ function (  $,        phrases) {
     const entry = $(event.target);
     const phraseData = phrases.fetch( entry.data().lookup.index );
 
-    $("#def-tbl").show();
+    $("#def-tbl").css("display", "table");
 
     if ( Object.hasOwn(phraseData, "category") ) {
       $("#def-tbl-cat").show();
@@ -125,8 +125,6 @@ function (  $,        phrases) {
 
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    $("#def-table").hide();
-
     addEntry(phrases.mostLikely); // For testing
     
     $("#canvas").on("click", ".entry", function( event ) {
