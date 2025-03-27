@@ -68,6 +68,9 @@ button {
   grid-column: 1 / span 1;
   grid-row: 2 / span 1;
   background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0;
 }
 
@@ -84,8 +87,8 @@ button {
   height: 80%;
   background-color: lightgray;
   padding: 3px;
-  text-align: center;
-  text-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 #def-tbl-def {
