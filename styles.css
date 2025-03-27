@@ -84,6 +84,7 @@ button {
   padding: 3px;
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
 }
 
 #def-tbl-phrase {
@@ -94,6 +95,7 @@ button {
   padding: 3px;
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
 }
 
 #def-tbl-def {
