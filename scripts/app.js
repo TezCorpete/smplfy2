@@ -66,9 +66,10 @@ function (  $,        phrases) {
   } // End addEntry
 
   function notIncluded(lookupObj) {
+    console.log(JSON.stringify(lookupObj) );
     $(".entry").each( function() {
       const info = $(this).data().lookup;
-      console.log( JSON.stringify(info) );
+      console.log( "    " + JSON.stringify(info) );
 
       if ( JSON.stringify(info) === JSON.stringify(lookupObj) ) {
         return false;
