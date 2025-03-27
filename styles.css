@@ -73,10 +73,12 @@ button {
 }
 
 #def-tbl-phrase {
+  height: 100%;
   grid-column: 1 / span 1;
   grid-row: 3 / span 1;
   background-color: lightgray;
   padding: inherit;
+  text-align: center;
   text-wrap: wrap;
 }
 
