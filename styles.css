@@ -52,6 +52,7 @@ button {
   grid-gap: 2px;
   width: 516px;
   padding: 3px;
+  display: none;
 }
 
 #def-tbl-head {
@@ -63,6 +64,7 @@ button {
 #def-tbl-cat {
   background-color: lightgray;
   padding: inherit;
+  display: none;
 }
 
 #def-tbl-phrase {

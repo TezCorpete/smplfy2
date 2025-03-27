@@ -97,12 +97,31 @@ function (  $,        phrases) {
     return (!included);
   }
   
+  function displayPhrase( event ) {
+    const entry = $(event.target);
+    const phraseData = phrases.fetch( entry.data().lookup.index );
+
+    $("#def-tbl").show();
+
+    if ( Object.hasOwn(phraseData, "category") ) {
+      $("#def-tbl-cat").show();
+      $("#def-tbl-cat").text( phraseData.category );
+    } else {
+      $("def-tbl-cat").hide();
+    }
+
+    $("#def-tbl-phrase").text( phraseData.phrase );
+
+    $("#def-tbl-def").text( phraseData.meaning );
+  }
+
   // When the document has loaded, add event listeners
   $(document).ready(function() {
     addEntry(phrases.mostLikely); // For testing
     
     $("#canvas").on("click", ".entry", function( event ) {
       addRow( event );
+      displayPhrase( event );
     });
   }); // End of document/ready
 }); // End of main logic
