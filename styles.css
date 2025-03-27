@@ -70,8 +70,6 @@ button {
   width: auto;
   display: flex;
   background-color: lightgray;
-  display: none;
-  margin: 3px;
   justify-content: center;
   align-items: center;
 }
@@ -83,7 +81,6 @@ button {
   width: auto;
   display: flex;
   background-color: rgb(241, 241, 241);
-  margin: 3px;
   justify-content: center;
   align-items: center;
 }
