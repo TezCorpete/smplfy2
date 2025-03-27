@@ -109,13 +109,11 @@ function (  $,        phrases) {
 
       
       $("def-tbl-phrase").css("grid-row", "3 / span 1");
-      $("def-tbl-phrase").css("height", "80%");
     } else {
-      $("def-tbl-cat").text("");
+      $("def-tbl-cat").empty();
       $("def-tbl-cat").hide();
 
       $("def-tbl-phrase").css("grid-row", "2 / span 2");
-      $("def-tbl-phrase").css("height", "100%");
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );
