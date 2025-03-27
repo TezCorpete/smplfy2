@@ -115,7 +115,7 @@ function (  $,        phrases) {
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );
-    $("#def-tbl-phrase").css("text-align", center);
+    $("#def-tbl-phrase").css("text-align", "center");
 
     $("#def-tbl-def").text( phraseData.meaning );
   }
