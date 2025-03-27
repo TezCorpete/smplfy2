@@ -101,8 +101,8 @@ function (  $,        phrases) {
   $(document).ready(function() {
     addEntry(phrases.mostLikely); // For testing
     
-    $("#canvas").on("click", ".entry", function() {
-      addRow( $(this) );
+    $("#canvas").on("click", ".entry", function( event ) {
+      addRow( event );
     });
   }); // End of document/ready
 }); // End of main logic
