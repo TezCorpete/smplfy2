@@ -66,12 +66,12 @@ function (  $,        phrases) {
   } // End addEntry
 
   function notIncluded(lookupObj) {
-    console.log(JSON.stringify(lookupObj) );
+    console.log( lookupObj.phrase );
     $(".entry").each( function() {
       const info = $(this).data().lookup;
-      console.log( "    " + JSON.stringify(info) );
+      console.log( "    " + info.phrase );
 
-      if ( JSON.stringify(info) === JSON.stringify(lookupObj) ) {
+      if ( lookupObj.phrase === info.phrase ) {
         return false;
       }
     });
