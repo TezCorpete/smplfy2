@@ -48,8 +48,9 @@ button {
 
 #def-tbl {
   height: fit-content;
+  width: 500px;
   display: grid;
-  grid-template-columns: 100px 250px;
+  grid-template-columns: 30% 70%;
   grid-gap: 2px;
   padding: 3px;
   display: none;
