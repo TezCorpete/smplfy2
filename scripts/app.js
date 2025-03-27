@@ -67,18 +67,18 @@ function (  $,        phrases) {
 
   function notIncluded(lookupObj) {
     const realPhrase = phrases.fetch( lookupObj.index ).phrase;
+    let included = false;
+    
     console.log( realPhrase.valueOf() );
     $(".entry").each( function() {
       const thisPhrase = $(this).text();
-      console.log( "    " + thisPhrase.valueOf() );
 
       if ( realPhrase.valueOf() == thisPhrase.valueOf() ) {
-        console.log( "    " + false );
-        return false;
+        included = true;
       }
     });
-    console.log( "    " + true );
-    return true;
+
+    return (!included);
   }
 
   function expandConnections(entry) {
