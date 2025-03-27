@@ -107,13 +107,16 @@ function (  $,        phrases) {
       $("#def-tbl-cat").show();
       $("#def-tbl-cat").text( phraseData.category );
 
-      
       $("def-tbl-phrase").css("grid-row", "3 / span 1");
+
+      console.log("Has Category");
     } else {
       $("def-tbl-cat").empty();
       $("def-tbl-cat").hide();
 
       $("def-tbl-phrase").css("grid-row", "2 / span 2");
+      
+      console.log("No Category");
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );
