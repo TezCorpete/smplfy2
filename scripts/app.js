@@ -95,10 +95,6 @@ function (  $,        phrases) {
 
     return full;
   }
-
-  Array.prototype.remove = function(index) {
-    this.splice(index, 1); // Remove 1 element from the arry, starting at index
-  }
   
   // When the document has loaded, add event listeners
   $(document).ready(function() {
