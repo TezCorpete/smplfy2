@@ -50,7 +50,7 @@ button {
   height: fit-content;
   width: 500px;
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 20% 80%;
   grid-gap: 2px;
   padding: 3px;
   display: none;
@@ -64,27 +64,33 @@ button {
   padding: inherit;
 }
 
-#def-tbl-cat {
+#def-tbl-inner {
   grid-column: 1 / span 1;
   grid-row: 2 / span 1;
   background-color: lightgray;
   display: none;
-  padding: inherit;
+  padding: 0;
+}
+
+#def-tbl-cat {
+  height: 20%;
+  background-color: lightgray;
+  display: none;
+  padding: 3px;
+  text-align: center;
 }
 
 #def-tbl-phrase {
-  height: 100%;
-  grid-column: 1 / span 1;
-  grid-row: 3 / span 1;
+  height: 80%;
   background-color: lightgray;
-  padding: inherit;
+  padding: 3px;
   text-align: center;
   text-wrap: wrap;
 }
 
 #def-tbl-def {
   grid-column: 2 / span 1;
-  grid-row: 2 / span 2;
+  grid-row: 2 / span 1;
   background-color: lightgray;
   padding: inherit;
   text-wrap: wrap;
