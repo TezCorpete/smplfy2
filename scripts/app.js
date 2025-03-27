@@ -106,8 +106,12 @@ function (  $,        phrases) {
     if ( Object.hasOwn(phraseData, "category") ) {
       $("#def-tbl-cat").show();
       $("#def-tbl-cat").text( phraseData.category );
+
+      $("def-tbl-phrase").css("grid-row", "2/4");
     } else {
       $("def-tbl-cat").hide();
+      
+      $("def-tbl-phrase").css("grid-row", "3/4");
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );

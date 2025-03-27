@@ -76,6 +76,6 @@ button {
 
 #def-tbl-def {
   grid-row: span 2;
-  background-color: lightgray;
+  background-color: white;
   padding: inherit;
 }
