@@ -103,7 +103,7 @@ function (  $,        phrases) {
 
     $("#def-tbl").css("display", "table");
 
-    if ( Object.hasOwn(phraseData, "category") ) {
+    if ( Object.hasOwn(phraseData, "category") && phraseData.category !== "" ) {
       $("#def-tbl-cat").show();
       $("#def-tbl-cat").text( phraseData.category );
 
