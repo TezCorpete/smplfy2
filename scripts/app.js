@@ -99,7 +99,7 @@ function (  $,        phrases) {
         break; // Break from inner loop to save time
       }
     }
-    entry.remove();
+    $(entry).remove();
   } // End rFAE
 
   Array.prototype.remove = function(index) {
