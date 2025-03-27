@@ -70,14 +70,18 @@ function (  $,        phrases) {
     let included = false;
     
     console.log( realPhrase.valueOf() );
+
     $(".entry").each( function() {
       const thisPhrase = $(this).text();
+      
+      console.log( "    ", thisPhrase.valueOf() );
 
       if ( realPhrase.valueOf() == thisPhrase.valueOf() ) {
         included = true;
       }
     });
-
+    
+    console.log( "    ", (!included) );
     return (!included);
   }
 
