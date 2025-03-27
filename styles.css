@@ -76,7 +76,6 @@ button {
   grid-row: 3 / span 1;
   background-color: lightgray;
   padding: inherit;
-  height: 75px;
   text-wrap: wrap;
 }
 
