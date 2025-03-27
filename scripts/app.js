@@ -66,7 +66,7 @@ function (  $,        phrases) {
   } // End addEntry
 
   function notIncluded(lookupObj) {
-    const realPhrase = phrases.fetch( lookupObj.index );
+    const realPhrase = phrases.fetch( lookupObj.index ).phrase;
     console.log( realPhrase );
     $(".entry").each( function() {
       const thisPhrase = $(this).text;
