@@ -104,24 +104,33 @@ function (  $,        phrases) {
     $("#def-tbl").css("display", "table");
 
     if ( Object.hasOwn(phraseData, "category") ) {
-      $("#def-tbl-cat").show();
-      $("#def-tbl-cat").text( phraseData.category );
+      addCategory(phraseData.category);
 
       $("def-tbl-phrase").css("grid-row", "3 / span 1");
 
+      $("def-tbl-def").css("grid-row", "2 / span 2");
+      
       console.log("Has Category");
     } else {
-      $("def-tbl-cat").empty();
-      $("def-tbl-cat").hide();
+      $("def-tbl-cat").remove();
 
-      $("def-tbl-phrase").css("grid-row", "2 / span 2");
+      $("def-tbl-phrase").css("grid-row", "2 / span 1");
       
+      $("def-tbl-def").css("grid-row", "2 / span 1");
+
       console.log("No Category");
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );
 
     $("#def-tbl-def").text( phraseData.meaning );
+  }
+
+  function addCategory(cat) {
+    const category = $("<div></div>").attr("id", "#def-tbl-cat")
+    category.text( cat );
+    
+    $("#def-tbl").append(category);
   }
 
   // When the document has loaded, add event listeners
