@@ -99,8 +99,10 @@ function (  $,        phrases) {
   
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    addEntry(phrases.mostLikely);
+    addEntry(phrases.mostLikely); // For testing
     
-    $("#canvas").on("click", ".entry", addRow);
-  });
+    $("#canvas").on("click", ".entry", function() {
+      addRow( $(this) );
+    });
+  }); // End of document/ready
 }); // End of main logic
