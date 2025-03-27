@@ -101,7 +101,7 @@ function (  $,        phrases) {
     const entry = $(event.target);
     const phraseData = phrases.fetch( entry.data().lookup.index );
 
-    $("#def-tbl").css("display", "table");
+    $("#def-tbl").css("display", "grid");
 
     if ( Object.hasOwn(phraseData, "category") ) {
       addCategory(phraseData.category);
@@ -127,7 +127,7 @@ function (  $,        phrases) {
   }
 
   function addCategory(cat) {
-    const category = $("<div></div>").attr("id", "#def-tbl-cat")
+    const category = $("<div></div>").attr("id", "#def-tbl-cat");
     category.text( cat );
     
     $("#def-tbl").append(category);
