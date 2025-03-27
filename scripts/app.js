@@ -68,20 +68,16 @@ function (  $,        phrases) {
   function notIncluded(lookupObj) {
     const realPhrase = phrases.fetch( lookupObj.index ).phrase;
     let included = false;
-    
-    console.log( realPhrase.valueOf() );
 
     $(".entry").each( function() {
       const thisPhrase = $(this).text();
-      
-      console.log( "    ", thisPhrase.valueOf() );
 
       if ( realPhrase.valueOf() == thisPhrase.valueOf() ) {
         included = true;
+        return; // Break out of .each loop
       }
     });
     
-    console.log( "    ", (!included) );
     return (!included);
   }
 
