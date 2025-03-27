@@ -33,7 +33,7 @@ button {
   border         : 1px dashed red;
   padding        : inline;
   justify-content: space-around;
-  overflow       : hidden;
+  flex-wrap      : wrap;
 }
 
 #canvas .row .entry {
