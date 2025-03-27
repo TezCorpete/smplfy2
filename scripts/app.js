@@ -34,19 +34,13 @@ function (  $,        phrases) {
       if (entry.parent().nextAll().length !== 0) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
-          $(this).slideUp(100, $(this).remove)
+          $(this).empty(); // Removes all children from this & .data cache
+          $(this).slideUp(100, $(this).remove);
         }); // End .nextAll
       } // End row removal
 
-      // Refresh the data; Removing the elements seems to mess with it
-      entry.data( "lookup", phrases.fetchLookup(entry.data().lookup.index) );
-      
-      console.log(entry.data().lookup.connections);
-
       // Save each connection as a full lookup object
       entries = expandConnections( entry.data().lookup );
-
-      console.log(entries);
     } // End entry-call operations
     
     $("#canvas").append(newRow);
@@ -54,13 +48,6 @@ function (  $,        phrases) {
     for (let i = 0; i < entries.length; i++) {
       addEntry( entries[i] );
     }
-
-    const included = [];
-    $(".entry").each( function() {
-      included.push( $(this).text().valueOf() );
-    });
-
-    console.log(included);
   } // End addRow
 
   function expandConnections(entry) {
