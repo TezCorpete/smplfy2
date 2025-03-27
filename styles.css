@@ -68,11 +68,12 @@ button {
 #def-tbl-cat {
   grid-column: 1 / span 1;
   grid-row: 2 / span 1;
+  height: 100%;
+  width: auto;
   display: flex;
-  margin: 3px;
   background-color: lightgray;
   display: none;
-  padding: 3px;
+  margin: 3px;
   justify-content: center;
   align-items: center;
 }
@@ -80,10 +81,11 @@ button {
 #def-tbl-phrase {
   grid-column: 1 / span 1;
   grid-row: 3 / span 1;
+  height: 100%;
+  width: auto;
   display: flex;
-  margin: 3px;
   background-color: rgb(241, 241, 241);
-  padding: 3px;
+  margin: 3px;
   justify-content: center;
   align-items: center;
 }
