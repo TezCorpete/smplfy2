@@ -65,7 +65,7 @@ function (  $,        phrases) {
       $(".row").last().append(newEntry);
 
       const included = [];
-      $(".entry").each( function {
+      $(".entry").each( function() {
         included.push( $(this).text().valueOf() );
       });
 
