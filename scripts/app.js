@@ -34,8 +34,11 @@ function (  $,        phrases) {
       if (entry.parent().nextAll().length !== 0) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
-          $(this).slideUp(100, $(this).remove);
-        });
+          $(this).slideUp(100, function() {
+            $(this).children().remove(); // Done manually to prevent issues
+            $(this).remove();
+          }); // End .slideUp
+        }); // End .nextAll
       } // End row removal
 
       // Refresh the data; Removing the elements seems to mess with it
