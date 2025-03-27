@@ -55,29 +55,26 @@ function (  $,        phrases) {
       addRow(null);
     }
 
-    if ( !alreadyIncluded(lookupObj) ) {
-      console.log(lookupObj);
-      
+    if ( notIncluded(lookupObj) ) {
       // Create the entry
       const newEntry = $("<div></div>").attr("class", "entry");
       const real = phrases.fetch( lookupObj.index );
       newEntry.text( real.phrase );
       newEntry.data( "lookup", lookupObj );
       $(".row").last().append(newEntry);
-
-      console.log($(".entry"));
     } // End canvas check for entry
   } // End addEntry
 
-  function alreadyIncluded(lookupObj) {
+  function notIncluded(lookupObj) {
     $(".entry").each( function() {
       const info = $(this).data().lookup;
 
       if ( JSON.stringify(info) === JSON.stringify(lookupObj) ) {
-        return true;
+        return false;
       }
     });
-    return false;
+    console.log(lookupObj);
+    return true;
   }
 
   function expandConnections(entry) {
