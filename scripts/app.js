@@ -30,7 +30,9 @@ function (  $,        phrases) {
       const entry = $(event.target);
       
       entry.css("outline", "2px solid green");
+      console.log(addedEntries);
       removeFromAddedEntries(entry.siblings());
+      console.log(addedEntries);
       entry.siblings().remove();
 
       // Remove all following rows if there are any
@@ -40,6 +42,8 @@ function (  $,        phrases) {
           removeFromAddedEntries($(this).children());
           $(this).slideUp(100, $(this).remove);
         });
+        
+        console.log(addedEntries);
       } // End row removal
 
       // Save each connection as a full lookup object
@@ -62,7 +66,6 @@ function (  $,        phrases) {
     if ( !addedEntries.includes(lookupObj.index) ) {
   
       addedEntries.push(lookupObj.index);
-      console.log(addedEntries);
       
       // Create the entry
       const newEntry = $("<div></div>").attr("class", "entry");
