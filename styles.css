@@ -29,11 +29,11 @@ button {
 }
 
 #canvas .row {
-  display        : flex;
-  border         : 1px dashed red;
-  padding        : inline;
-  justify-content: space-around;
-  flex-wrap      : wrap;
+  display         : flex;
+  border          : 1px dashed red;
+  padding         : inline;
+  justify-content : space-around;
+  flex-wrap       : wrap;
 }
 
 #canvas .row .entry {
@@ -44,4 +44,36 @@ button {
   padding         : 3px 1px 0px 1px; /* Up, Right, Down, Left */
   white-space     : nowrap;
   text-align      : center;
+}
+
+#def-tbl {
+  display: grid;
+  grid-template-columns: 100px 250px;
+  grid-gap: 2px;
+  width: 516px;
+  padding: 3px;
+}
+
+#def-tbl-head {
+  grid-column: span 2;
+  background-color: gray;
+  padding: inherit;
+}
+
+#def-tbl-cat {
+  background-color: lightgray;
+  padding: inherit;
+}
+
+#def-tbl-phrase {
+  grid-row: 3 / 4;
+  background-color: lightgray;
+  padding: inherit;
+  height: 75px;
+}
+
+#def-tbl-def {
+  grid-row: span 2;
+  background-color: lightgray;
+  padding: inherit;
 }
