@@ -67,15 +67,17 @@ function (  $,        phrases) {
 
   function notIncluded(lookupObj) {
     const realPhrase = phrases.fetch( lookupObj.index ).phrase;
-    console.log( realPhrase );
+    console.log( realPhrase.valueOf() );
     $(".entry").each( function() {
       const thisPhrase = $(this).text();
-      console.log( "    " + thisPhrase );
+      console.log( "    " + thisPhrase.valueOf() );
 
       if ( realPhrase.valueOf() == thisPhrase.valueOf() ) {
+        console.log( "    " + false );
         return false;
       }
     });
+    console.log( "    " + true );
     return true;
   }
 
