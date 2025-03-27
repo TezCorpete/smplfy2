@@ -101,7 +101,7 @@ function (  $,        phrases) {
     const entry = $(event.target);
     const phraseData = phrases.fetch( entry.data().lookup.index );
 
-    $("#def-tbl").css("display", "grid");
+    $("#def-tbl").css("display", "table");
 
     if ( Object.hasOwn(phraseData, "category") ) {
       $("#def-tbl-cat").show();
