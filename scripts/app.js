@@ -34,10 +34,7 @@ function (  $,        phrases) {
       if (entry.parent().nextAll().length !== 0) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
-          $(this).slideUp(100, function() {
-            $(this).children().remove(); // Done manually to prevent issues
-            $(this).remove();
-          }); // End .slideUp
+          $(this).slideUp(100, $(this).remove)
         }); // End .nextAll
       } // End row removal
 
@@ -48,6 +45,8 @@ function (  $,        phrases) {
 
       // Save each connection as a full lookup object
       entries = expandConnections( entry.data().lookup );
+
+      console.log(entries);
     } // End entry-call operations
     
     $("#canvas").append(newRow);
