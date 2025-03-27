@@ -65,8 +65,11 @@ function (  $,        phrases) {
       $(".row").last().append(newEntry);
 
       const included = [];
-      $(".entry").each( included.push( $(this).text().valueOf() ) );
-      console.log( included );
+      $(".entry").each( function {
+        included.push( $(this).text().valueOf() );
+      });
+
+      console.log(included);
     } // End canvas check for entry
   } // End addEntry
 
