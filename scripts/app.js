@@ -28,8 +28,7 @@ function (  $,        phrases) {
       const entry = $(event.target);
       
       entry.css("outline", "2px solid green");
-      const removed = entry.siblings().remove();
-      console.log( removed );
+      entry.siblings().remove();
 
       // Remove all following rows if there are any
       if (entry.parent().nextAll().length !== 0) {
@@ -38,6 +37,9 @@ function (  $,        phrases) {
           $(this).slideUp(100, $(this).remove);
         });
       } // End row removal
+      
+      // Refresh the data; Removing the elements seems to mess with it
+      entry.data( "lookup", phrases.fetchLookup(entry.data().lookup.index) );
 
       // Save each connection as a full lookup object
       entries = expandConnections( entry.data().lookup );
