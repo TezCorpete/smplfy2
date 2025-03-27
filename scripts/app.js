@@ -109,7 +109,7 @@ function (  $,        phrases) {
 
       $("def-tbl-phrase").css("height", "80%");
     } else {
-      $("def-tbl-cat").text( "" );
+      $("def-tbl-cat").empty();
       $("def-tbl-cat").hide();
 
       $("def-tbl-phrase").css("height", "100%");
