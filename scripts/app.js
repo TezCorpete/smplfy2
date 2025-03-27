@@ -56,6 +56,7 @@ function (  $,        phrases) {
     }
 
     if ( !alreadyIncluded(lookupObj) ) {
+      console.log(lookupObj);
       
       // Create the entry
       const newEntry = $("<div></div>").attr("class", "entry");
@@ -63,6 +64,8 @@ function (  $,        phrases) {
       newEntry.text( real.phrase );
       newEntry.data( "lookup", lookupObj );
       $(".row").last().append(newEntry);
+
+      console.log($(".entry"));
     } // End canvas check for entry
   } // End addEntry
 
@@ -71,8 +74,6 @@ function (  $,        phrases) {
       const info = $(this).data().lookup;
 
       if ( JSON.stringify(info) === JSON.stringify(lookupObj) ) {
-        console.log(JSON.stringify(info));
-        console.log(JSON.stringify(lookupObj));
         return true;
       }
     });
