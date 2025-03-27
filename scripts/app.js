@@ -16,8 +16,6 @@ requirejs.config({
 // Start the main app logic.
 requirejs(["jquery", "app/phrases"],
 function (  $,        phrases) {
-
-  const addedEntries = []; // The index of each entry on canvas
   
   function addRow(event) {
     // Create the row
@@ -30,19 +28,14 @@ function (  $,        phrases) {
       const entry = $(event.target);
       
       entry.css("outline", "2px solid green");
-      console.log("Before .siblings: " + addedEntries);
-      entry.siblings().each( (e) => removeEntry(e) );
-      console.log("After .siblings: " + addedEntries);
+      entry.siblings().remove();
 
       // Remove all following rows if there are any
       if (entry.parent().nextAll().length !== 0) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
-          $(this).children().each( (e) => removeEntry(e) );
           $(this).slideUp(100, $(this).remove);
         });
-        
-        console.log("After .parent(): " + addedEntries);
       } // End row removal
 
       // Save each connection as a full lookup object
@@ -54,8 +47,6 @@ function (  $,        phrases) {
     for (let i = 0; i < entries.length; i++) {
       addEntry( entries[i] );
     }
-
-    console.log("After addRow(): " + addedEntries);
   } // End addRow
   
   function addEntry(lookupObj) {
@@ -64,9 +55,7 @@ function (  $,        phrases) {
       addRow(null);
     }
 
-    if ( !addedEntries.includes(lookupObj.index) ) {
-  
-      addedEntries.push(lookupObj.index);
+    if ( !alreadyIncluded(lookupObj) ) {
       
       // Create the entry
       const newEntry = $("<div></div>").attr("class", "entry");
@@ -76,6 +65,17 @@ function (  $,        phrases) {
       $(".row").last().append(newEntry);
     } // End canvas check for entry
   } // End addEntry
+
+  function alreadyIncluded(lookupObj) {
+    $(".entry").each( function() {
+      const info = $(this).data().lookup;
+
+      if ( JSON.stringify(info) === JSON.stringify(lookupObj) ) {
+        return true;
+      }
+    });
+    return false;
+  }
 
   function expandConnections(entry) {
     if ( !Object.hasOwn(entry, "connections") ) {
@@ -91,16 +91,6 @@ function (  $,        phrases) {
 
     return full;
   }
-
-  function removeEntry(entry) {
-    for (let i = 0; i < addedEntries.length; i++) {
-      if (addedEntries[i] === entry.index) {
-        addedEntries.remove(i);
-        break; // Break from inner loop to save time
-      }
-    }
-    $(entry).remove();
-  } // End rFAE
 
   Array.prototype.remove = function(index) {
     this.splice(index, 1); // Remove 1 element from the arry, starting at index
