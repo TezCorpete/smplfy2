@@ -80,6 +80,7 @@ button {
 }
 
 #def-tbl-phrase {
+  display: flex;
   height: 80%;
   background-color: lightgray;
   padding: 3px;
