@@ -78,7 +78,7 @@ button {
 #def-tbl-cat {
   display: flex;
   height: 20%;
-  width: 100%;
+  margin: 3px;
   background-color: lightgray;
   display: none;
   padding: 3px;
@@ -89,7 +89,7 @@ button {
 #def-tbl-phrase {
   display: flex;
   height: 80%;
-  width: 100%;
+  margin: 3px;
   background-color: lightgray;
   padding: 3px;
   justify-content: center;
