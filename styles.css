@@ -47,10 +47,10 @@ button {
 }
 
 #def-tbl {
+  height: fit-content;
   display: grid;
   grid-template-columns: 100px 250px;
   grid-gap: 2px;
-  width: 516px;
   padding: 3px;
   display: none;
 }
@@ -76,6 +76,7 @@ button {
   background-color: lightgray;
   padding: inherit;
   height: 75px;
+  text-wrap: wrap;
 }
 
 #def-tbl-def {
@@ -83,4 +84,5 @@ button {
   grid-row: 2 / span 2;
   background-color: white;
   padding: inherit;
+  text-wrap: wrap;
 }
