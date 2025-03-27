@@ -63,6 +63,9 @@ function (  $,        phrases) {
       newEntry.text( real.phrase );
       newEntry.data( "lookup", lookupObj );
       $(".row").last().append(newEntry);
+
+      const included = $(".entry").each( () => $(this).text().valueOf() );
+      console.log( included );
     } // End canvas check for entry
   } // End addEntry
 
