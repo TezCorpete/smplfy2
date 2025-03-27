@@ -16,6 +16,8 @@ requirejs.config({
 // Start the main app logic.
 requirejs(["jquery", "app/phrases"],
 function (  $,        phrases) {
+
+  const addedEntries = []; // The index of each entry on canvas
   
   function addRow(event) {
     // Create the row
@@ -34,6 +36,7 @@ function (  $,        phrases) {
       if (entry.parent().nextAll().length !== 0) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
+          removeFromAddedEntries($(this).children());
           $(this).slideUp(100, $(this).remove);
         });
       } // End row removal
@@ -54,13 +57,19 @@ function (  $,        phrases) {
     if ($(".row").length === 0) {
       addRow(null);
     }
-    
-    // Create the entry
-    const newEntry = $("<div></div>").attr("class", "entry");
-    const txt = phrases.fetch( lookupObj.index );
-    newEntry.text( txt.phrase );
-    newEntry.data( "lookup", lookupObj );
-    $(".row").last().append(newEntry);
+
+    if ( !addedEntries.includes(lookupObj.index) ) {
+  
+      addedEntries.push(lookupObj.index);
+      console.log(addedEntries);
+      
+      // Create the entry
+      const newEntry = $("<div></div>").attr("class", "entry");
+      const real = phrases.fetch( lookupObj.index );
+      newEntry.text( real.phrase );
+      newEntry.data( "lookup", lookupObj );
+      $(".row").last().append(newEntry);
+    } // End canvas check for entry
   } // End addEntry
 
   function expandConnections(entry) {
@@ -76,6 +85,23 @@ function (  $,        phrases) {
     }
 
     return full;
+  }
+
+  function removeFromAddedEntries(entries) {
+    for (let i = 0; i < entries.length; i++) {
+      const curr = entries[i];
+
+      for (let j = 0; j < addedEntries.length; j++) {
+        if (addedEntries[j] === curr.index) {
+          addedEntries.remove(j);
+          break; // Break from inner loop to save time
+        }
+      } // End j / addedEntries loop
+    } // End i loop
+  } // End rFAE
+
+  Array.prototype.remove = function(index) {
+    this.splice(index, 1); // Remove 1 element from the arry, starting at index
   }
   
   // When the document has loaded, add event listeners
