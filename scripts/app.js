@@ -30,20 +30,19 @@ function (  $,        phrases) {
       const entry = $(event.target);
       
       entry.css("outline", "2px solid green");
-      console.log(addedEntries);
-      removeFromAddedEntries(entry.siblings());
-      console.log(addedEntries);
-      entry.siblings().remove();
+      console.log("Before .siblings: " + addedEntries);
+      entry.siblings().each( (e) => removeEntry(e) );
+      console.log("After .siblings: " + addedEntries);
 
       // Remove all following rows if there are any
       if (entry.parent().nextAll().length !== 0) {
         // Slide each up then delete it
         entry.parent().nextAll().each( function() {
-          removeFromAddedEntries($(this).children());
+          $(this).children().each( (e) => removeEntry(e) );
           $(this).slideUp(100, $(this).remove);
         });
         
-        console.log(addedEntries);
+        console.log("After .parent(): " + addedEntries);
       } // End row removal
 
       // Save each connection as a full lookup object
@@ -55,6 +54,8 @@ function (  $,        phrases) {
     for (let i = 0; i < entries.length; i++) {
       addEntry( entries[i] );
     }
+
+    console.log("After addRow(): " + addedEntries);
   } // End addRow
   
   function addEntry(lookupObj) {
@@ -91,17 +92,14 @@ function (  $,        phrases) {
     return full;
   }
 
-  function removeFromAddedEntries(entries) {
-    for (let i = 0; i < entries.length; i++) {
-      const curr = entries[i];
-
-      for (let j = 0; j < addedEntries.length; j++) {
-        if (addedEntries[j] === curr.index) {
-          addedEntries.remove(j);
-          break; // Break from inner loop to save time
-        }
-      } // End j / addedEntries loop
-    } // End i loop
+  function removeEntry(entry) {
+    for (let i = 0; i < addedEntries.length; i++) {
+      if (addedEntries[i] === entry.index) {
+        addedEntries.remove(i);
+        break; // Break from inner loop to save time
+      }
+    }
+    entry.remove();
   } // End rFAE
 
   Array.prototype.remove = function(index) {
