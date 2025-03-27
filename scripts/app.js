@@ -112,6 +112,7 @@ function (  $,        phrases) {
       $("def-tbl-cat").hide();
 
       $("def-tbl-phrase").css("grid-row", "2 / span 2");
+      $("def-tbl-phrase").css( "height", $("#def-tbl-def").css("height") );
     }
 
     $("#def-tbl-phrase").text( phraseData.phrase );
