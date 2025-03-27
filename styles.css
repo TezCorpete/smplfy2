@@ -50,7 +50,7 @@ button {
   height: fit-content;
   width: 500px;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 30% 70%;
   grid-gap: 2px;
   padding: 3px;
   display: none;
