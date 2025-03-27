@@ -106,17 +106,13 @@ function (  $,        phrases) {
     if ( Object.hasOwn(phraseData, "category") ) {
       addCategory(phraseData.category);
 
-      $("def-tbl-phrase").css("grid-row", "3 / span 1");
-
-      $("def-tbl-def").css("grid-row", "2 / span 2");
+      $("#def-tbl-phrase").css("grid-row", "3 / span 1");
       
       console.log("Has Category");
     } else {
-      $("def-tbl-cat").remove();
+      $("#def-tbl-cat").remove();
 
-      $("def-tbl-phrase").css("grid-row", "2 / span 1");
-      
-      $("def-tbl-def").css("grid-row", "2 / span 1");
+      $("#def-tbl-phrase").css("grid-row", "2 / span 2");
 
       console.log("No Category");
     }
