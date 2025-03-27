@@ -71,6 +71,8 @@ function (  $,        phrases) {
       const info = $(this).data().lookup;
 
       if ( JSON.stringify(info) === JSON.stringify(lookupObj) ) {
+        console.log(JSON.stringify(info));
+        console.log(JSON.stringify(lookupObj));
         return true;
       }
     });
