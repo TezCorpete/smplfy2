@@ -177,7 +177,7 @@ function (  $,        phrases) {
       addRow( event );
       
       const entry = $(event.target);
-      const index = entry.data().lookup.index
+      const index = entry.data().lookup.index;
       const phraseData = phrases.fetch( index );
       displayPhrase( phraseData );
     });
@@ -202,12 +202,14 @@ function (  $,        phrases) {
     }); // End of #doc-text .annotation
 
     $("#input-btns").on("click", "#paste-btn", function() {
-      navigator.clipboard
-        .readText()  // Returns Promise
-        .then(
-          (txt) => { $("#doc-text").val(txt); }
-        );
-    }); // End of #input-btns #paste-btn
+      if ( $("#canvas").attr("contenteditable") === true ) {
+        navigator.clipboard
+          .readText()  // Returns Promise
+          .then(
+            (txt) => { $("#doc-text").html(txt); }
+          );
+      }
+  }); // End of #input-btns #paste-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
       annotateText( $("#doc-text").val() );
