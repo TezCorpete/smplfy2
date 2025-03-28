@@ -224,9 +224,17 @@ function (  $,        phrases) {
     }); // End of #input-btns #paste-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
-      annotateText( $("#doc-text").text() );
+      if ( $("#doc-text").attr("contenteditable").valueOf() == "true" ) {
+        annotateText( $("#doc-text").text() );
 
-      console.log("Annotated text!");
+        console.log("Annotated text!");
+
+        return;
+      }
+      
+      console.log("Can't edit right now!");
+
+      return;
     }); // End of #input-btns #paste-btn
   }); // End of document/ready
 }); // End of main logic

@@ -313,9 +313,7 @@ function(lem,          phraseData,              lookupData) {
           "span": span
         } );
 
-        // Prepare everything for the next loop
-        minIndex++;
-        rawIndices = searchForXInY(currLookup, text, minIndex); 
+        rawIndices = searchForXInY(currLookup, text, firstThing.index + 1); 
       } // End location loop
       
       matches.push( {
