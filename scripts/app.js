@@ -154,6 +154,12 @@ function (  $,        phrases) {
 
     for (let i = 0; i < splitText.length; i++) {
       $("#doc-text").append( splitText[i] );
+
+      if ( i !== splitText.length - 1 ) {
+        // Kinda important to include these
+        // Glad I did the first time...
+        $("#doc-text").append(" ");
+      }
     }
   } // End annotateText
   
