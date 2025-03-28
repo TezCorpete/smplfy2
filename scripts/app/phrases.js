@@ -301,16 +301,25 @@ function(lem,          phraseData,              lookupData) {
           }
         }
 
-        console.log("  First thing: " + firstThing);
+        console.log( "First thing: " + JSON.stringify(firstThing) );
 
         // Save the location, relative to splits at spaces
         const span = firstThing.thing.split(/[\s]+/g).length;
 
         console.log("    With a span of " + span);
 
-        const textBeforeThing = text.substring(0, firstThing.index)
-        // Doesn't count the trailing space, so length can be used as is
-        const index = textBeforeThing.split( /[\s]+/g ).length;
+        // Get everything, including the first letter of the matching thing
+        const textBeforeThing = text.substring(0, firstThing.index + 1);
+        const splitAtSpaces = textBeforeThing.split( /[\s]+/g );
+        
+        let index = 0;
+        // If the only thing is the first letter, then the word is the first thing
+        if (splitAtSpaces.length === 0 || ( splitAtSpaces.length === 1 
+        && splitAtSpaces[0].valueOf() == firstThing.thing[0].valueOf() )) {
+          // Don't do anything
+        } else {
+          index = textBeforeThing.split( /[\s]+/g ).length - 1;
+        }
 
         console.log("    At word index " + index);
 
