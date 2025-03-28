@@ -3,26 +3,45 @@ body {
   display: flex;
 }
 
-#input {
-  margin-right: 20px;
-} 
-
-#doc-info {
-  flex: 1;
-}  
-
 button {
   background-color: white;
   border          : none;
 }
+
+#input {
+  margin-right: 20px;
+} 
 
 #doc-text {
   /* 8.5" x 11" proportions */
   width: 34em;
   height: 44em;
   resize: none;
+  overflow: auto;
   border: 1px solid black;
 }
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  pointer-events: none;
+}
+
+.annotation {
+  /* Highlight color */
+  background-color: yellow;
+}
+
+#paste-btn {
+  display: inline-block
+}
+
+#submit-btn {
+  float: right;
+}
+
+#doc-info {
+  flex: 1;
+}  
 
 #title {
   width           : 500px;

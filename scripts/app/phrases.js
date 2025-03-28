@@ -174,11 +174,6 @@ function(lem,          phraseData,              lookupData) {
     for (let i = 0; i < lookup.length; i++) {
       const curr = lookup[i];
       curr.relevance = calcRelevance(curr);
-
-      if (curr.relevance > highestRelevance) {
-        highestRelevance = curr.relevance;
-        mostLikely = curr;
-      }
     }
     
     // Convert every element to JSON text
@@ -193,7 +188,7 @@ function(lem,          phraseData,              lookupData) {
   
   /**
    * Normalizes the given fragment by removing any features that are potentially ever-so-slightly different
-   * @param {String} text - A string that may contain some punctuation, which is to be ignored
+   * @param {String} text - A string that may contain some punctuation, which is to be removed
    * @return {String} - The original text, sans acronyms, punctuation, capitalization, and alternate word forms
    */
   function pickyNormalize(text) {
@@ -212,8 +207,46 @@ function(lem,          phraseData,              lookupData) {
     // Remove capitalization for all words
     const capNormalized = words.map((word) => word.toLowerCase()); // Arrow notation for the win!
     
-    // Get one lemma for each word (Only ever choosing the first word should be fine, right?)
-    const normalized = words.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
+    // Get one lemma for each word (Only ever choosing the first lemma should be fine, right?)
+    const normalized = capNormalized.map((word) => lemmatizer.only_lemmas(word)[0]); // ".only_lemmas" returns a list
+
+    // Return the line, a string once more
+    return normalized.join(" ").trim();
+  }
+
+  /**
+   * Normalizes the given text, saving acronyms and other meaningful word strings
+   * @param {String} text - A string that may contain some punctuation, which is to be ignored
+   * @return {String} - The original text, sans capitalization, punctuation, and alternate word forms
+   */
+  function nonDestructiveNormalize(text) {
+    // Remove all punctuation
+    text = text.replaceAll(/[,.()\/'-]/g, " ");
+
+    // Do a pass removing all invalid single letter words
+    text = text.replaceAll(/[\s]+[^AaI][\s]+/g, ""); // "O" is only used in poetry, so it isn't valid here
+    
+    // Make an array of all the words, without surrounding spaces
+    const words = text.split(/[\s]+/);
+    const trimmed = words.map((each) => each.trim()); // Redundancy is key when you don't know what you are doing
+
+    // Remove capitalization for all words except acronyms
+    const capNormalized = trimmed.map((word) => {
+      if (word.isAcronym()) {
+        return word;
+      }
+      return word.toLowerCase();
+    } );
+    
+    // Lemmatizer tends to delete " a ", hence the differentiation
+    // Get one lemma for each word (Only ever choosing the first lemma should be fine, right?)
+    const normalized = capNormalized.map( (word) => {
+      if (word.isAcronym() || word.valueOf() == "a") {
+        return word;
+      }
+      // Otherwise, it's business as usual
+      return lemmatizer.only_lemmas(word)[0]; // ".only_lemmas" returns a list
+    } );
 
     // Return the line, a string once more
     return normalized.join(" ").trim();
@@ -236,11 +269,103 @@ function(lem,          phraseData,              lookupData) {
   function fetch(index) {
     return phraseData[index];
   }
+
+  /**
+   * Finds all matching phrases in the database
+   * @param {string} text - The text to be parsed for phrases
+   * @return {Object} - A list of match objects, set up as follows
+   *   lookup: The matched phrase in lookup.json
+   *   locations: A list of objects
+   *     index: the starting index of the match in text,
+   *            split on whitespace. 
+   *     span: how many split-onwhitespace-elements the match covers
+   */
+  function findMatches(text) {
+    text = nonDestructiveNormalize( text );
+    
+    const matches = [];
+
+    for (let i = 0; i < lookupData.length; i++) {
+      const currLookup = lookupData[i];
+
+      const locations = [];
+
+      let rawIndices = searchForXInY(currLookup, text);
+      // While anything is found
+      while (rawIndices.some( (el) => el.index > -1 )) {
+        // Save the first place something matched at
+        let firstThing = rawIndices[0];
+        for (let j = 1; j < rawIndices.length; j++) {
+          if (rawIndices[j].index < firstThing.index) {
+            firstThing = rawIndices[j];
+          }
+        }
+
+        // Save the location, relative to splits at spaces
+        const span = firstThing.thing.split(/[\s]+/g).length;
+
+        const beforeThing = text.substring(0, firstThing.index)
+        // Negative one makes it include all trailing empty strings
+        const index = beforeThing.split( /[\s]+/g, -1 ).length - 1;
+
+        locations.push( {
+          "index": index,
+          "span": span
+        } );
+
+        // Prepare everything for the next loop
+        minIndex++;
+        rawIndices = searchForXInY(currLookup, text, minIndex); 
+      } // End location loop
+      
+      matches.push( {
+        "lookup": currLookup,
+        "locations": locations
+      } );
+    } // End lookup loop
+
+    return matches;
+  } // End findMatches
+
+  /**
+   * Finds the "raw" or not-word-based index of things
+   * @param {Object} lookup - The lookup you want to check for
+   * @param {String} reference - Where you want to search for things
+   * @param {int} index - The starting index of the search. Defaults to 0.
+   * @return {Array} - A list of indices / what was checked as objects
+   */
+  function searchForXInY( lookup, reference, index = 0 ) {
+    const indices = [];
+
+    // I didn't properly lowercase the phrase or category, so...
+    let things = [ lookup.lemmas[0].toLowercase() ];
+    if ( Object.hasOwn(lookup, "acronyms") ) {
+      things = things.concat( lookup.acronyms );
+    }
+    // If it has a category
+    if ( lookup.lemmas.length > 2 ) {
+      things = things.concat( lookup.lemmas[2].toLowerCase() );
+    }
+
+    for (let i = 0; i < things.length; i++) {
+      const iOf = reference.indexOf(things[i], index);
+      const checked = things[i];
+      
+      indices.push({
+        "index": iOf,
+        "thing": checked
+      });
+    }
+
+    return indices;
+  }
   
   return {
+    "nonDestructiveNormalize": nonDestructiveNormalize, // Weirdo
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,
     "fetchLookup"   : fetchLookup,
+    "findMatches"   : findMatches,
     "mostLikely"    : mostLikely
   };
 }); // End of define

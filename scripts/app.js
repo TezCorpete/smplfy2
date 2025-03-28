@@ -97,14 +97,11 @@ function (  $,        phrases) {
     return (!included);
   }
   
-  function displayPhrase( event ) {
-    const entry = $(event.target);
-    const phraseData = phrases.fetch( entry.data().lookup.index );
-
+  function displayPhrase( phraseObj ) {
     $("#def-tbl").css("display", "grid");
 
-    if ( Object.hasOwn(phraseData, "category") ) {
-      addCategory(phraseData.category);
+    if ( Object.hasOwn(phraseObj, "category") ) {
+      addCategory(phraseObj.category);
 
       $("#def-tbl-phrase").css("grid-row", "3 / span 1");
     } else {
@@ -113,9 +110,9 @@ function (  $,        phrases) {
       $("#def-tbl-phrase").css("grid-row", "2 / span 2");
     }
 
-    $("#def-tbl-phrase").text( phraseData.phrase );
+    $("#def-tbl-phrase").text( phraseObj.phrase );
 
-    $("#def-tbl-def").text( phraseData.meaning );
+    $("#def-tbl-def").text( phraseObj.meaning );
   }
 
   function addCategory(cat) {
@@ -125,14 +122,84 @@ function (  $,        phrases) {
     $("#def-tbl").append(category);
   }
 
+  function annotateText(text) {
+    // Disable the textarea
+    $("#doc-text").attr("contenteditable", false);
+
+    // Returns a list of match objects. "locations" contains index/span
+    // objects of the match, and "lookup" the lookup obj from lookup.json
+    const matches = phrases.findMatches(text);
+    
+    const splitText = text.split(/[\s]+/g);
+
+    // For every match
+    for (let i = 0; i < matches.length(); i++) {
+      const match = matches[i];
+      
+      // For every matched index/span
+      for (let j = 0; j < match.locations.length; j++) {
+        const index = match.locations[j].index;
+        const span = match.locations[j].span;
+
+        // Annotate all words in the span individually
+        for (let k = index; k < index + span; k++) {
+          splitText[k] = annotate(splitText[k], match.lookup);
+        }
+      } // End matchedIndices loop
+    } // End match loop
+
+    $("#doc-text").html( splitText.join(" ") );
+  } // End annotateText
+  
+  function annotate(thing, lookupObj) {
+    // If it has already been annotated, add another
+    if ( typeof thing === "object" ) {
+      thing.data().phrases.push(lookupObj);
+      
+      return thing;
+    } else if ( typeof thing === "string" ) {
+      const annotation = $("<span></span>").attr("class", "annotation");
+      annotation.text( thing );
+      // Initialize the list of phrases in data
+      annotation.data().phrases = [];
+      // Save the phrase object in said
+      annotation.data().phrases.push(lookupObj);
+
+      return annotation;
+    }
+  } // End annotate
+
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    addEntry(phrases.mostLikely); // For testing
+    addEntry( phrases.mostLikely ); // For testing
     
     $("#canvas").on("click", ".entry", function( event ) {
       addRow( event );
-      displayPhrase( event );
+      
+      const entry = $(event.target);
+      const index = entry.data().lookup.index
+      const phraseData = phrases.fetch( index );
+      displayPhrase( phraseData );
     });
+
+    $("#doc-text").on("click", ".annotation", function( event ) {
+      // Out of utmost caution, I am emptying each row individually
+      // before deleting it, to prevent data cache issues
+      if ( $("#canvas").children().length !== 0 ) {
+        $("#canvas").children().each( function() {
+          $(this).empty(); // Removes all children from this & .data cache
+          $(this).remove();
+        }); // End .each
+      } // End row removal
+      $("#canvas").empty(); // I do NOT want to fix another memory issue
+      
+      // Add all the matches to canvas
+      const spanEl = $(event.target);
+      const matches = spanEl.data().phrases;
+      for (let i = 0; i < matches.length; i++) {
+        addEntry( matches[i] );
+      }
+    }); // End of #doc-text .annotation
 
     $("#input-btns").on("click", "#paste-btn", function() {
       navigator.clipboard
@@ -140,6 +207,10 @@ function (  $,        phrases) {
         .then(
           (txt) => { $("#doc-text").val(txt); }
         );
+    }); // End of #input-btns #paste-btn
+
+    $("#input-btns").on("click", "#submit-btn", function() {
+      annotateText( $("#doc-text").val() );
     }); // End of #input-btns #paste-btn
   }); // End of document/ready
 }); // End of main logic
