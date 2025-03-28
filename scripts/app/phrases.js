@@ -394,7 +394,7 @@ function(lem,          phraseData,              lookupData) {
         let actualMatch;
         if ( i === 0) {
           actualMatch = actualPhrase.phrase;
-        } else if (hasAcronyms && ( i > 0 && i <= actualPhrase.acronyms.length))
+        } else if (hasAcronyms && ( i > 0 && i <= actualPhrase.acronyms.length)) {
           actualMatch = actualPhrase.acronyms[i - 1];
         } else { // The category matched
           actualMatch = actualPhrase.category;
