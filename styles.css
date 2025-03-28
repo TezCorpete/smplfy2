@@ -3,14 +3,13 @@ body {
   display: flex;
 }
 
-#doc-info {
-  flex: 1;
-  border: 2px solid yellow;
-}  
-
 #input {
   margin-right: 20px;
 } 
+
+#doc-info {
+  flex: 1;
+}  
 
 button {
   background-color: white;
@@ -18,8 +17,9 @@ button {
 }
 
 #doc-text {
-  width: 30em;
-  height: 50em;
+  /* 8.5" x 11" proportions */
+  width: 34em;
+  height: 44em;
   resize: none;
   border: 1px solid black;
 }
