@@ -207,12 +207,18 @@ function (  $,        phrases) {
 
     $("#input-btns").on("click", "#paste-btn", function() {
       if ( $("#canvas").attr("contenteditable") === true ) {
+        console.log("Paste clicked!");
+
         navigator.clipboard
           .readText()  // Returns Promise
           .then(
-            (txt) => { $("#doc-text").html(txt); }
+            (txt) => { $("#doc-text").text(txt); }
           );
+        
+        return;
       }
+
+      console.log("Can't edit right now!");
     }); // End of #input-btns #paste-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
