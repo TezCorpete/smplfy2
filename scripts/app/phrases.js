@@ -221,7 +221,7 @@ function(lem,          phraseData,              lookupData) {
    */
   function nonDestructiveNormalize(text) {
     // Remove all punctuation
-    text = text.replaceAll(/[,.()\/'-]/g, " ");
+    text = text.replaceAll(/[,.()\/'-]/g, "");
 
     // Do a pass removing all invalid single letter words
     text = text.replaceAll(/[\s]+[^AaI][\s]+/g, ""); // "O" is only used in poetry, so it isn't valid here
@@ -308,9 +308,17 @@ function(lem,          phraseData,              lookupData) {
 
         console.log("    With a span of " + span);
 
-        // Get everything, including the first letter of the matching thing
-        const textBeforeThing = text.substring(0, firstThing.index + 1);
+        // Get everything, including the matching thing
+        const textBeforeThing = text.substring(0, firstThing.index + firstThing.thing.length);
         const splitAtSpaces = textBeforeThing.split( /[\s]+/g );
+        // Remove empty strings
+        for (let j = 0; j < splitAtSpaces.length; ) {
+          if ( splitAtSpaces[j].valueOf() == "" ) {
+            splitAtSpaces.remove(j);
+          } else {
+            j++;
+          }
+        }
         
         let index = 0;
         // If the only thing is the first letter, then the word is the first thing
@@ -331,7 +339,7 @@ function(lem,          phraseData,              lookupData) {
         // Clear the list
         rawIndices.splice(0, rawIndices.length);
         // Add the next search
-        const nextResults = searchForXInY(currLookup, text, firstThing.index + 1);
+        const nextResults = searchForXInY(currLookup, text, firstThing.index + firstThing.thing.length);
         for (let j = 0; j < nextResults.length; j++) {
           rawIndices.push( nextResults[j] );
         }
