@@ -326,7 +326,7 @@ function(lem,          phraseData,              lookupData) {
         && splitAtSpaces[0].valueOf() == firstThing.thing[0].valueOf() )) {
           // Don't do anything
         } else {
-          index = splitAtSpaces.length - 1;
+          index = splitAtSpaces.length - span;
         }
 
         console.log("    At word index " + index);
