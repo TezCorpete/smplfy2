@@ -149,6 +149,9 @@ function (  $,        phrases) {
       } // End matchedIndices loop
     } // End match loop
 
+    // Make sure nothing is in there when the appending begins
+    $("#doc-text").empty();
+
     for (let i = 0; i < splitText.length; i++) {
       $("#doc-text").append( splitText[i] );
     }
