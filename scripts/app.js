@@ -133,5 +133,13 @@ function (  $,        phrases) {
       addRow( event );
       displayPhrase( event );
     });
+
+    $("#input-btns").on("click", "#paste-btn", function() {
+      navigator.clipboard
+        .readText()  // Returns Promise
+        .then(
+          (txt) => { $("#doc-text").val(txt); }
+        );
+    }); // End of #input-btns #paste-btn
   }); // End of document/ready
 }); // End of main logic

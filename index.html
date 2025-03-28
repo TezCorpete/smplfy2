@@ -10,18 +10,31 @@
   <script data-main="scripts/app.js" src="scripts/require.js"></script>
 </head>
 <body>
-  <div id="title">
-    <h1 id="title-button">Tree Canvas</h1>
+  <div id="input">
+    <textarea id="doc-text" placeholder="Try copying in a policy contract!"></textarea>
+    
+    <div id="input-btns">
+      <!-- <button value="Copy"></button> -->
+      <button id="paste-btn" value="Paste"></button>
+      <!-- <input type="submit" value="Check definitions"></input> -->
+    </div>
   </div>
   
-  <div class="container">
-    <div id="canvas"></div>
-  </div>
-  
-  <div id="def-tbl">
-    <div id="def-tbl-head">Term Information</div>
-    <div id="def-tbl-phrase">Phrase</div>
-    <div id="def-tbl-def">Definition</div>
-  </div>
-</body>
+  <div id="doc-info">
+    <div id="title">
+      <h1 id="title-button">Tree Canvas</h1>
+    </div>
+    
+    <div class="container">
+      <div id="canvas"></div>
+    </div>
+    
+    <div id="def-tbl">
+      <div id="def-tbl-head">Term Information</div>
+      <div id="def-tbl-phrase">Phrase</div>
+      <div id="def-tbl-def">Definition</div>
+    </div>
+  </div
+  >
+  </body>
 </html>

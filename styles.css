@@ -4,6 +4,20 @@ button {
   border          : none;
 }
 
+#input {
+  display: inline-block;
+}
+
+#doc-text {
+  width: 30em;
+  height: 50em;
+  border: 1px solid black;
+}
+
+#doc-info {
+  display: inline-block;
+}
+
 #title {
   width           : 500px;
   height          : 50px;
