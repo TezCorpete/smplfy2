@@ -207,8 +207,6 @@ function (  $,        phrases) {
 
     $("#input-btns").on("click", "#paste-btn", function() {
       if ( $("#doc-text").attr("contenteditable").valueOf() == "true" ) {
-        console.log("Paste clicked!");
-
         navigator.clipboard
           .readText()  // Returns Promise
           .then(
@@ -227,6 +225,8 @@ function (  $,        phrases) {
 
     $("#input-btns").on("click", "#submit-btn", function() {
       annotateText( $("#doc-text").val() );
+
+      console.log("Annotated text!");
     }); // End of #input-btns #paste-btn
   }); // End of document/ready
 }); // End of main logic
