@@ -206,7 +206,7 @@ function (  $,        phrases) {
     }); // End of #doc-text .annotation
 
     $("#input-btns").on("click", "#paste-btn", function() {
-      if ( $("#canvas").attr("contenteditable") === "true" ) {
+      if ( $("#canvas").attr("contenteditable").valueOf() == "true" ) {
         console.log("Paste clicked!");
 
         navigator.clipboard
