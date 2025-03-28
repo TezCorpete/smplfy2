@@ -301,12 +301,16 @@ function(lem,          phraseData,              lookupData) {
           }
         }
 
+        console.log("  First thing: " + firstThing);
+
         // Save the location, relative to splits at spaces
         const span = firstThing.thing.split(/[\s]+/g).length;
+        console.log("    With a span of " + span);
 
         const beforeThing = text.substring(0, firstThing.index)
         // Negative one makes it include all trailing empty strings
         const index = beforeThing.split( /[\s]+/g, -1 ).length - 1;
+        console.log("    At word index " + index);
 
         locations.push( {
           "index": index,
@@ -354,6 +358,8 @@ function(lem,          phraseData,              lookupData) {
         "thing": checked
       });
     }
+
+    console.log("Index of x in y: " + indices);
 
     return indices;
   }
