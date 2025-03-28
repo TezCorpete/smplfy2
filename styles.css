@@ -1,21 +1,18 @@
 
+body {
+  display: inline-block;
+}
+
 button {
   background-color: white;
   border          : none;
 }
 
-#input {
-  display: inline-block;
-}
-
 #doc-text {
   width: 30em;
   height: 50em;
+  resize: none;
   border: 1px solid black;
-}
-
-#doc-info {
-  display: inline-block;
 }
 
 #title {
