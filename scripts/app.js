@@ -224,7 +224,7 @@ function (  $,        phrases) {
     }); // End of #input-btns #paste-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
-      annotateText( $("#doc-text").val() );
+      annotateText( $("#doc-text").text() );
 
       console.log("Annotated text!");
     }); // End of #input-btns #paste-btn
