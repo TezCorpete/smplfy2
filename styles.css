@@ -32,10 +32,17 @@ button {
 }
 
 #paste-btn {
+  /* Align Left */
+  display: inline-block
+}
+
+#clear-btn {
+  /* Align Left */
   display: inline-block
 }
 
 #submit-btn {
+  /* Align Right */
   float: right;
 }
 

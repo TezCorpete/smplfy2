@@ -181,6 +181,8 @@ function (  $,        phrases) {
       const index = entry.data().lookup.index;
       const phraseData = phrases.fetch( index );
       displayPhrase( phraseData );
+
+      return;
     });
 
     $("#doc-text").on("click", ".annotation", function( event ) {
@@ -200,6 +202,8 @@ function (  $,        phrases) {
       for (let i = 0; i < matches.length; i++) {
         addEntry( matches[i] );
       }
+
+      return;
     }); // End of #doc-text .annotation
 
     $("#input-btns").on("click", "#paste-btn", function() {
@@ -213,12 +217,21 @@ function (  $,        phrases) {
               return;
             }
           );
-        
-        return;
       }
 
-      console.log("Can't edit right now!");
+      return;
     }); // End of #input-btns #paste-btn
+
+    $("#input-btns").on("click", "#clear-btn", function() {
+      if ( $("#doc-text").attr("contenteditable").valueOf() == "false" ) {
+        $("#doc-text").attr("contenteditable", "true");
+      }
+      
+      // Remove all text / markup
+      $("#doc-text").empty();
+
+      return;
+    }); // End of #input-btns #clear-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
       if ( $("#doc-text").attr("contenteditable").valueOf() == "true" 
@@ -227,13 +240,7 @@ function (  $,        phrases) {
         $("#doc-text").attr("contenteditable", "false");
 
         annotateText( $("#doc-text").text() );
-
-        console.log("Annotated text!");
-
-        return;
       }
-      
-      console.log("Can't edit right now!");
 
       return;
     }); // End of #input-btns #paste-btn
