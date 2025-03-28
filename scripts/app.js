@@ -149,7 +149,9 @@ function (  $,        phrases) {
       } // End matchedIndices loop
     } // End match loop
 
-    $("#doc-text").html( splitText.join(" ") );
+    for (let i = 0; i < splitText.length; i++) {
+      $("#doc-text").append( splitText[i] );
+    }
   } // End annotateText
   
   function annotate(thing, lookupObj) {

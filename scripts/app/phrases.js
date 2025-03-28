@@ -301,7 +301,7 @@ function(lem,          phraseData,              lookupData) {
           }
         }
 
-        console.log( "First thing: " + JSON.stringify(firstThing) );
+        console.log( "First thing: " + JSON.stringify(firstThing.actual) );
 
         // Save the location, relative to splits at spaces
         const span = firstThing.thing.split(/[\s]+/g).length;
@@ -362,18 +362,24 @@ function(lem,          phraseData,              lookupData) {
    * @param {String} reference - Where you want to search for things
    * @param {int} index - The starting index of the search. Defaults to 0.
    * @return {Array} - A list of indices / what was checked as objects
+   *   Also includes the actual thing that matched, as "actual"
    */
   function searchForXInY( lookup, reference, index) {
     const indices = [];
 
     // I didn't properly lowercase the phrase or category, so...
     let things = [ lookup.lemmas[0].toLowerCase() ];
+    let hasAcronyms = false;
+    let hasCategory = false;
+
     if ( Object.hasOwn(lookup, "acronyms") ) {
       things = things.concat( lookup.acronyms );
+      hasAcronyms = true;
     }
     // If it has a category
     if ( lookup.lemmas.length > 2 ) {
       things = things.concat( lookup.lemmas[2].toLowerCase() );
+      hasCategory = true;
     }
 
     for (let i = 0; i < things.length; i++) {
@@ -381,12 +387,24 @@ function(lem,          phraseData,              lookupData) {
       console.log( "Checking this thing: " + things[i] );
 
       const iOf = reference.indexOf(things[i], index);
-      const checked = things[i];
       
       if ( iOf > -1 ) {
+        // Get the actual thing that matched
+        const actualPhrase = phraseData[i];
+        let actualMatch;
+        if ( i === 0) {
+          actualMatch = actualPhrase.phrase;
+        } else if (hasAcronyms && ( i > 0 && i <= actualPhrase.acronyms.length))
+          actualMatch = actualPhrase.acronyms[i - 1];
+        } else { // The category matched
+          actualMatch = actualPhrase.category;
+        }
+
+
         indices.push({
           "index": iOf,
-          "thing": checked
+          "thing": things[i],
+          "actual": actualMatch
         });
       }
     }
