@@ -123,12 +123,9 @@ function (  $,        phrases) {
   }
 
   function annotateText(text) {
-    if ( text.length === 0) {
+    if ( text.length === 0 ) {
       return;
     }
-    
-    // Disable the textarea
-    $("#doc-text").attr("contenteditable", "false");
 
     // Returns a list of match objects. "locations" contains index/span
     // objects of the match, and "lookup" the lookup obj from lookup.json
@@ -224,7 +221,11 @@ function (  $,        phrases) {
     }); // End of #input-btns #paste-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
-      if ( $("#doc-text").attr("contenteditable").valueOf() == "true" ) {
+      if ( $("#doc-text").attr("contenteditable").valueOf() == "true" 
+      && $("#doc-text").text().length !== 0 ) {
+        // Disable text input
+        $("#doc-text").attr("contenteditable", "false");
+
         annotateText( $("#doc-text").text() );
 
         console.log("Annotated text!");
