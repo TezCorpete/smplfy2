@@ -183,8 +183,6 @@ function (  $,        phrases) {
 
   // When the document has loaded, add event listeners
   $(document).ready(function() {
-    addEntry( phrases.mostLikely ); // For testing
-    
     $("#canvas").on("click", ".entry", function( event ) {
       addRow( event );
       
