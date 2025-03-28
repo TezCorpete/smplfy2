@@ -209,7 +209,7 @@ function (  $,        phrases) {
             (txt) => { $("#doc-text").html(txt); }
           );
       }
-  }); // End of #input-btns #paste-btn
+    }); // End of #input-btns #paste-btn
 
     $("#input-btns").on("click", "#submit-btn", function() {
       annotateText( $("#doc-text").val() );
