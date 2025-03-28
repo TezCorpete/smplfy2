@@ -123,6 +123,10 @@ function (  $,        phrases) {
   }
 
   function annotateText(text) {
+    if ( text.length === 0) {
+      return;
+    }
+    
     // Disable the textarea
     $("#doc-text").attr("contenteditable", false);
 
