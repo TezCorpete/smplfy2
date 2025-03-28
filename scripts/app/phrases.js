@@ -338,7 +338,7 @@ function(lem,          phraseData,              lookupData) {
     const indices = [];
 
     // I didn't properly lowercase the phrase or category, so...
-    let things = [ lookup.lemmas[0].toLowercase() ];
+    let things = [ lookup.lemmas[0].toLowerCase() ];
     if ( Object.hasOwn(lookup, "acronyms") ) {
       things = things.concat( lookup.acronyms );
     }
