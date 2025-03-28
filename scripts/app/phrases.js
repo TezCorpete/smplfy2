@@ -278,9 +278,9 @@ function(lem,          phraseData,              lookupData) {
    *   locations: A list of objects
    *     index: the starting index of the match in text,
    *            split on whitespace. 
-   *     span: how many split-onwhitespace-elements the match covers
+   *     span: how many split-on-whitespace-elements the match covers
    */
-  function findMatches(text) {
+  function findMatches( text ) {
     text = nonDestructiveNormalize( text );
     
     const matches = [];
@@ -290,9 +290,9 @@ function(lem,          phraseData,              lookupData) {
 
       const locations = [];
 
-      let rawIndices = searchForXInY(currLookup, text);
+      const rawIndices = searchForXInY(currLookup, text);
       // While anything is found
-      while (rawIndices.some( (el) => el.index > -1 )) {
+      while ( rawIndices.length > 0 ) {
         // Save the first place something matched at
         let firstThing = rawIndices[0];
         for (let j = 1; j < rawIndices.length; j++) {
@@ -305,11 +305,13 @@ function(lem,          phraseData,              lookupData) {
 
         // Save the location, relative to splits at spaces
         const span = firstThing.thing.split(/[\s]+/g).length;
+
         console.log("    With a span of " + span);
 
-        const beforeThing = text.substring(0, firstThing.index)
-        // Negative one makes it include all trailing empty strings
-        const index = beforeThing.split( /[\s]+/g, -1 ).length - 1;
+        const textBeforeThing = text.substring(0, firstThing.index)
+        // Doesn't count the trailing space, so length can be used as is
+        const index = textBeforeThing.split( /[\s]+/g ).length;
+
         console.log("    At word index " + index);
 
         locations.push( {
@@ -317,13 +319,21 @@ function(lem,          phraseData,              lookupData) {
           "span": span
         } );
 
-        rawIndices = searchForXInY(currLookup, text, firstThing.index + 1); 
+        // Clear the list
+        rawIndices.splice(0, rawIndices.length);
+        // Add the next search
+        const nextResults = searchForXInY(currLookup, text, firstThing.index + 1);
+        for (let j = 0; j < nextResults.length; j++) {
+          rawIndices.push( nextResults[j] );
+        }
       } // End location loop
       
-      matches.push( {
-        "lookup": currLookup,
-        "locations": locations
-      } );
+      if ( locations.length > 0 ) {
+        matches.push( {
+          "lookup": currLookup,
+          "locations": locations
+        } );
+      }
     } // End lookup loop
 
     return matches;
@@ -336,7 +346,7 @@ function(lem,          phraseData,              lookupData) {
    * @param {int} index - The starting index of the search. Defaults to 0.
    * @return {Array} - A list of indices / what was checked as objects
    */
-  function searchForXInY( lookup, reference, index = 0 ) {
+  function searchForXInY( lookup, reference, index) {
     const indices = [];
 
     // I didn't properly lowercase the phrase or category, so...
@@ -356,16 +366,18 @@ function(lem,          phraseData,              lookupData) {
       const iOf = reference.indexOf(things[i], index);
       const checked = things[i];
       
-      indices.push({
-        "index": iOf,
-        "thing": checked
-      });
+      if ( iOf > -1 ) {
+        indices.push({
+          "index": iOf,
+          "thing": checked
+        });
+      }
     }
 
     if ( indices.length > 0 ) {
       console.log("Index of x in y: " + indices);
     }
-
+    
     return indices;
   }
   
