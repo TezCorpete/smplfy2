@@ -212,7 +212,10 @@ function (  $,        phrases) {
         navigator.clipboard
           .readText()  // Returns Promise
           .then(
-            (txt) => { $("#doc-text").text(txt); }
+            (txt) => { 
+              const oldText = $("#doc-text").text();
+              $("#doc-text").text( oldText + txt ); 
+            }
           );
         
         return;
