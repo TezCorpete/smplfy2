@@ -215,6 +215,7 @@ function (  $,        phrases) {
             (txt) => { 
               const oldText = $("#doc-text").text();
               $("#doc-text").text( oldText + txt ); 
+              return;
             }
           );
         
