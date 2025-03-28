@@ -417,7 +417,8 @@ function(lem,          phraseData,              lookupData) {
   }
   
   return {
-    "printNormalizedPhraseData": printNormalizedPhraseData,
+    // Shhhhh. I didn't want to learn file editing
+    /* "printNormalizedPhraseData": printNormalizedPhraseData, */
     "nonDestructiveNormalize": nonDestructiveNormalize,
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,
