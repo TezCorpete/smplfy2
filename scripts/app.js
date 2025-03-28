@@ -128,7 +128,7 @@ function (  $,        phrases) {
     }
     
     // Disable the textarea
-    $("#doc-text").attr("contenteditable", false);
+    $("#doc-text").attr("contenteditable", "false");
 
     // Returns a list of match objects. "locations" contains index/span
     // objects of the match, and "lookup" the lookup obj from lookup.json
