@@ -193,7 +193,7 @@ function(lem,          phraseData,              lookupData) {
    */
   function pickyNormalize(text) {
     // Replace all punctuation with spaces
-    text = text.replaceAll(/[,.()\/'-]/g, " ");
+    text = text.replaceAll(/[,.()\/']/g, " ");
 
     // Do a pass removing all invalid single letter words
     text = text.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
@@ -221,7 +221,7 @@ function(lem,          phraseData,              lookupData) {
    */
   function nonDestructiveNormalize(text) {
     // Remove all punctuation
-    text = text.replaceAll(/[,.()\/'-]/g, "");
+    text = text.replaceAll(/[,.()\/']/g, "");
 
     // Do a pass removing all invalid single letter words
     text = text.replaceAll(/[\s]+[^AaI][\s]+/g, ""); // "O" is only used in poetry, so it isn't valid here
@@ -417,7 +417,8 @@ function(lem,          phraseData,              lookupData) {
   }
   
   return {
-    "nonDestructiveNormalize": nonDestructiveNormalize, // Weirdo
+    "printNormalizedPhraseData": printNormalizedPhraseData,
+    "nonDestructiveNormalize": nonDestructiveNormalize,
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,
     "fetchLookup"   : fetchLookup,

@@ -119,7 +119,7 @@ function(
     // **************************************************
     // public
     // **************************************************
-    // reuturn Array of ["lemma", "pos"] pairs
+    // return Array of ["lemma", "pos"] pairs
     // like [ ["lemma1", "verb"], ["lemma2", "noun"]... ]
     lemmas: function(form, pos) {
       var self = this;
@@ -166,7 +166,7 @@ function(
   
     // **************************************************
     // private
-    // The following properties(methods) are only used by
+    // The following properties (methods) are only used by
     // Lemmatizer inside, so don't call them from outside.
     // **************************************************
     is_lemma_empty: function() {
