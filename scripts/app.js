@@ -134,7 +134,7 @@ function (  $,        phrases) {
     const splitText = text.split(/[\s]+/g);
 
     // For every match
-    for (let i = 0; i < matches.length(); i++) {
+    for (let i = 0; i < matches.length; i++) {
       const match = matches[i];
       
       // For every matched index/span
