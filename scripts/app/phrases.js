@@ -350,6 +350,9 @@ function(lem,          phraseData,              lookupData) {
     }
 
     for (let i = 0; i < things.length; i++) {
+      
+      console.log( "Checking this thing: things[i]" );
+
       const iOf = reference.indexOf(things[i], index);
       const checked = things[i];
       
@@ -359,7 +362,9 @@ function(lem,          phraseData,              lookupData) {
       });
     }
 
-    console.log("Index of x in y: " + indices);
+    if ( indices.length > 0 ) {
+      console.log("Index of x in y: " + indices);
+    }
 
     return indices;
   }
