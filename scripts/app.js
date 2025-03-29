@@ -71,7 +71,13 @@ function (  $,        phrases) {
       addRow(null);
     }
 
-    if ( notIncluded(lookupObj) ) {
+    if ( Object.hasOwn(lookupObj, "isDocGenerated") ) {
+      // Create the entry with the class entry AND doc-generated
+      const newEntry = $("<div></div>").addClass("entry doc-generated");
+      newEntry.text( "Annotation" );
+      newEntry.data("lookup", lookupObj);
+      $(".row").last().append(newEntry);
+    } else if ( notIncluded(lookupObj) ) {
       // Create the entry
       const newEntry = $("<div></div>").attr("class", "entry");
       const real = phrases.fetch( lookupObj.index );
@@ -86,11 +92,15 @@ function (  $,        phrases) {
     let included = false;
 
     $(".entry").each( function() {
+      if ( $(this).hasClass("doc-generated") ) {
+        return; // Non-false return acts as continue
+      }
+
       const thisPhrase = $(this).text();
 
       if ( realPhrase.valueOf() == thisPhrase.valueOf() ) {
         included = true;
-        return; // Break out of .each loop
+        return false; // Break out of .each loop
       }
     });
     
@@ -187,9 +197,11 @@ function (  $,        phrases) {
       addRow( event );
       
       const entry = $(event.target);
-      const index = entry.data().lookup.index;
-      const phraseData = phrases.fetch( index );
-      displayPhrase( phraseData );
+      if ( !entry.hasClass("doc-generated") ) {
+        const index = entry.data().lookup.index;
+        const phraseData = phrases.fetch( index );
+        displayPhrase( phraseData );
+      }
 
       return;
     });
@@ -205,12 +217,19 @@ function (  $,        phrases) {
       } // End row removal
       $("#canvas").empty(); // I do NOT want to fix another memory issue
       
-      // Add all the matches to canvas
+      const annotationEntry = {
+        "isDocGenerated": true,
+        "connections": []
+      };
+
+      // Add all the matches to the entry
       const spanEl = $(event.target);
       const matches = spanEl.data().phrases;
       for (let i = 0; i < matches.length; i++) {
-        addEntry( matches[i] );
+        annotationEntry.connections.push( matches[i] );
       }
+
+      addEntry( annotationEntry );
 
       return;
     }); // End of #doc-text .annotation
