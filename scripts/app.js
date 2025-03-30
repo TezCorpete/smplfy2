@@ -195,7 +195,7 @@ function (  $,        phrases) {
   $(document).ready(function() {
 
     // For setup
-    phrases.printNormalizedPhraseData();
+    // phrases.printNormalizedPhraseData();
 
     $("#canvas").on("click", ".entry", function( event ) {
       addRow( event );

@@ -303,12 +303,12 @@ function(lem,          phraseData,              lookupData) {
           }
         }
 
-        console.log( "First thing: " + JSON.stringify(firstThing.thing) );
+        // console.log( "First thing: " + JSON.stringify(firstThing.thing) );
 
         // Save the location, relative to splits at spaces
         const span = firstThing.thing.split(/[\s]+/g).length;
 
-        console.log("    With a span of " + span);
+        // console.log("    With a span of " + span);
 
         // Get everything, including the matching thing
         const textUpToThing = text.substring(0, firstThing.index + firstThing.thing.length);
@@ -328,7 +328,7 @@ function(lem,          phraseData,              lookupData) {
         // is "span" more than the index of the match.
         let index = splitAtSpaces.length - span;
 
-        console.log("    At word index " + index);
+        // console.log("    At word index " + index);
 
         locations.push( {
           "index": index,
@@ -384,7 +384,7 @@ function(lem,          phraseData,              lookupData) {
 
     for (let i = 0; i < things.length; i++) {
       
-      console.log( "Checking this thing: " + JSON.stringify(things[i]) );
+      // console.log( "Checking this thing: " + JSON.stringify(things[i]) );
 
       const iOf = reference.indexOf(things[i], index);
       
@@ -396,14 +396,14 @@ function(lem,          phraseData,              lookupData) {
       }
     } // End things loop
 
-    console.log("Indices: " + JSON.stringify(indices));
+    // console.log("Indices: " + JSON.stringify(indices));
     
     return indices;
   }
   
   return {
     // Shhhhh. I didn't want to learn file editing
-    "printNormalizedPhraseData": printNormalizedPhraseData,
+    // "printNormalizedPhraseData": printNormalizedPhraseData,
     "nonDestructiveNormalize": nonDestructiveNormalize,
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,
