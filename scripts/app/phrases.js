@@ -238,10 +238,12 @@ function(lem,          phraseData,              lookupData) {
       return word.toLowerCase();
     } );
     
-    // Lemmatizer tends to delete " a ", hence the differentiation
     // Get one lemma for each word (Only ever choosing the first lemma should be fine, right?)
     const normalized = capNormalized.map( (word) => {
-      if (word.isAcronym() || word.valueOf() == "a") {
+      // Acronyms are always to be left as is, and
+      // Lemmatizer tends to delete one letter words,
+      // of which there aren't many, but this is cleaner
+      if (word.isAcronym() || word.length == 1) {
         return word;
       }
       // Otherwise, it's business as usual
