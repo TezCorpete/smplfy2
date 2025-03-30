@@ -217,19 +217,22 @@ function (  $,        phrases) {
       } // End row removal
       $("#canvas").empty(); // I do NOT want to fix another memory issue
       
+      // Create an entry with all relevant match data
+      // so that the user can repopulate the next row as needed
       const annotationEntry = {
         "isDocGenerated": true,
         "connections": []
       };
-
       // Add all the matches to the entry
       const spanEl = $(event.target);
       const matches = spanEl.data().phrases;
       for (let i = 0; i < matches.length; i++) {
         annotationEntry.connections.push( matches[i] );
       }
-
       addEntry( annotationEntry );
+
+      // Hide the definition table
+      $("#def-tbl").css("display", "none");
 
       return;
     }); // End of #doc-text .annotation
