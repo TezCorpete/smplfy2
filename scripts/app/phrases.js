@@ -198,8 +198,8 @@ function(lem,          phraseData,              lookupData) {
    * @return {String} - The original text, sans acronyms, punctuation, capitalization, and alternate word forms
    */
   function pickyNormalize(text) {
-    // Replace all punctuation with spaces
-    text = text.replaceAll(/[,.()\/']/g, "");
+    // Remove all punctuation
+    text = text.replaceAll(/[\W\S_]+/g, "");
     
     // Make an array of all the words, without surrounding spaces
     const words = text.split(/[\s]+/);
