@@ -199,10 +199,7 @@ function(lem,          phraseData,              lookupData) {
    */
   function pickyNormalize(text) {
     // Replace all punctuation with spaces
-    text = text.replaceAll(/[,.()\/']/g, " ");
-
-    // Do a pass removing all invalid single letter words
-    text = text.replaceAll(/[\s]+[^AaI][\s]+/g, " "); // O is only used in poetry, so it isn't valid here
+    text = text.replaceAll(/[,.()\/']/g, "");
     
     // Make an array of all the words, without surrounding spaces
     const words = text.split(/[\s]+/);
@@ -228,9 +225,6 @@ function(lem,          phraseData,              lookupData) {
   function nonDestructiveNormalize(text) {
     // Remove all punctuation
     text = text.replaceAll(/[,.()\/']/g, "");
-
-    // Do a pass removing all invalid single letter words
-    text = text.replaceAll(/[\s]+[^AaI][\s]+/g, ""); // "O" is only used in poetry, so it isn't valid here
     
     // Make an array of all the words, without surrounding spaces
     const words = text.split(/[\s]+/);
