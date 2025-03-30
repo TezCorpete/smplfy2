@@ -295,6 +295,9 @@ function(lem,          phraseData,              lookupData) {
     // to avoid the definitions being offset. Welcome to stress testing.
     text = text.replaceAll(/[,.()\/]/g, "x");
 
+    // Replace all non-contained ' with x, too
+    text = text.replaceAll(/([\s](')|(')[\s]){1}/g, "x");
+
     text = nonDestructiveNormalize( text );
     
     const matches = [];
