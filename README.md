@@ -1,4 +1,6 @@
-A scholastic project, done as part of a multiple-month challenge
+A scholastic project, done as part of a multiple-month challenge. 
+
+Available under MIT license, so you can do whatever you want with the code, sell it, whatever, as long as you don't delete credit.
 
 Dependencies: (Yes, I really know this little about JS / web development)
   - RequireJS (scripts/require.js): Library for managing dependencies, used heavily to make up for my inexperience with JavaScript
