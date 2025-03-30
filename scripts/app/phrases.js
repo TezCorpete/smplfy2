@@ -288,6 +288,13 @@ function(lem,          phraseData,              lookupData) {
    *     span: how many split-on-whitespace-elements the match covers
    */
   function findMatches( text ) {
+    // Hackiest solution yet. You have been warned.
+    // Replace all punctuation with a single random letter, just as long as it
+    // won't create false positives. This allows ctrl+A pastes from Hades like
+    // https://doi.nv.gov/uploadedFiles/doinvgov/_public-documents/Consumers/AU127-1.pdf
+    // to avoid the definitions being offset. Welcome to stress testing.
+    text = text.replaceAll(/[,.()\/]/g, "x");
+
     text = nonDestructiveNormalize( text );
     
     const matches = [];
