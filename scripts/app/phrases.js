@@ -301,7 +301,7 @@ function(lem,          phraseData,              lookupData) {
           }
         }
 
-        console.log( "First thing: " + JSON.stringify(firstThing.actual) );
+        console.log( "First thing: " + JSON.stringify(firstThing.thing) );
 
         // Save the location, relative to splits at spaces
         const span = firstThing.thing.split(/[\s]+/g).length;
@@ -309,8 +309,8 @@ function(lem,          phraseData,              lookupData) {
         console.log("    With a span of " + span);
 
         // Get everything, including the matching thing
-        const textBeforeThing = text.substring(0, firstThing.index + firstThing.thing.length);
-        const splitAtSpaces = textBeforeThing.split( /[\s]+/g );
+        const textUpToThing = text.substring(0, firstThing.index + firstThing.thing.length);
+        const splitAtSpaces = textUpToThing.split( /[\s]+/g );
         // Remove empty strings
         for (let j = 0; j < splitAtSpaces.length; ) {
           if ( splitAtSpaces[j].valueOf() == "" ) {
@@ -320,14 +320,11 @@ function(lem,          phraseData,              lookupData) {
           }
         }
         
-        let index = 0;
-        // If the only thing is the first letter, then the word is the first thing
-        if (splitAtSpaces.length === 0 || ( splitAtSpaces.length === 1 
-        && splitAtSpaces[0].valueOf() == firstThing.thing[0].valueOf() )) {
-          // Don't do anything
-        } else {
-          index = splitAtSpaces.length - span;
-        }
+        
+        // If sAS contains the entire text up to / including the match,
+        // then the number of words (space-separated non-empty strings)
+        // is "span" more than the index of the match.
+        let index = splitAtSpaces.length - span;
 
         console.log("    At word index " + index);
 
@@ -384,7 +381,7 @@ function(lem,          phraseData,              lookupData) {
 
     for (let i = 0; i < things.length; i++) {
       
-      console.log( "Checking this thing: " + things[i] );
+      console.log( "Checking this thing: " + JSON.stringify(things[i]) );
 
       const iOf = reference.indexOf(things[i], index);
       
@@ -410,7 +407,7 @@ function(lem,          phraseData,              lookupData) {
     }
 
     if ( indices.length > 0 ) {
-      console.log("Index of x in y: " + indices);
+      console.log("Index of x in y: " + JSON.stringify(indices));
     }
     
     return indices;
