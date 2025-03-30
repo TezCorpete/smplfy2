@@ -285,7 +285,7 @@ function(lem,          phraseData,              lookupData) {
   function findMatches( text ) {
     text = nonDestructiveNormalize( text );
 
-    console.log( "Text: " + text );
+    console.log( "nDNormalized Text: " + text );
     
     const matches = [];
 
