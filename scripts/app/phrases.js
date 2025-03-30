@@ -150,17 +150,17 @@ function(lem,          phraseData,              lookupData) {
 
       // Lemmatize almost all info
       const lemms = [];
-      // If the phrase is an acronym, don't normalize it
-      if (entry.phrase.isAcronym()) {
-        lemms.push(entry.phrase);
-      } else {
-        lemms.push(pickyNormalize(entry.phrase));
-      }
-      lemms.push(pickyNormalize(entry.meaning));
+
+      // If the phrase is/contains an acronym, don't normalize the acronym
+      lemms.push( nonDestructiveNormalize(entry.phrase) );
+
+      lemms.push( pickyNormalize(entry.meaning) );
+
       // Only if category exists
       if (Object.hasOwn(entry, "category")) {
-        lemms.push(pickyNormalize(entry.category));
+        lemms.push( pickyNormalize(entry.category) );
       }
+
       lookupObj.lemmas = lemms;
 
       // Add acronyms, if applicable
@@ -403,7 +403,7 @@ function(lem,          phraseData,              lookupData) {
   
   return {
     // Shhhhh. I didn't want to learn file editing
-    /* "printNormalizedPhraseData": printNormalizedPhraseData, */
+    "printNormalizedPhraseData": printNormalizedPhraseData,
     "nonDestructiveNormalize": nonDestructiveNormalize,
     "pickyNormalize": pickyNormalize,
     "fetch"         : fetch,

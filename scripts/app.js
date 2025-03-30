@@ -193,6 +193,10 @@ function (  $,        phrases) {
 
   // When the document has loaded, add event listeners
   $(document).ready(function() {
+
+    // For setup
+    phrases.printNormalizedPhraseData();
+
     $("#canvas").on("click", ".entry", function( event ) {
       addRow( event );
       
