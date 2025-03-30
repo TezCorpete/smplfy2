@@ -23,10 +23,12 @@ File sources:
           - WARNING: At least one phrase object contains fictional acronyms from an example contained in the "meaning" attribute, and may or may not result in false positives.
     - lookup.json Object Structure
       - Document takes the form of a list
-        - lemmas: Contains list with the lemmatized version of the phrase, followed by the lemmatized meaning and then 
+        - lemmas: Contains list with the lemmatized version of the phrase, followed by the lemmatized meaning and then category, if applicable
           - NOTICE: If the phrase is an acronym, it still appears first, but remains unchanged (like all other acronyms)
         - acronyms: An array of all acronyms found in the phrase/meaning, now separate.
         - index: The index of the phrase the entry is associated with
         - connections: A list of phrase objects
           - index: The index of the original phrase of the matched lookup entry, from phrases.json
           - phrase: The phrase, acronym or otherwise, unedited and sourced from phrases.json based on "index"
+
+Most of the code is commented, though proper documentation is yet to come.
