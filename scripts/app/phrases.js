@@ -1,3 +1,9 @@
+/* 
+ * Copyright (c) 2025 TallishHobbit
+ * smplfy (JavaScript-based Insurance Phrase Recognizer)
+ * https://github.com/TallishHobbit/smplfy
+ * MIT License
+ */
 
 define(["lemmatizer", "json!src/phrases.json", "json!src/lookup.json"], 
 function(lem,          phraseData,              lookupData) {
@@ -5,7 +11,7 @@ function(lem,          phraseData,              lookupData) {
   // Setup
   // **************************************************
   
-  // Initialize the lemmatizer
+  // Initialize the lemmatizer (See licensing in lemmatizer-v0.0.2.js)
   const lemmatizer = new lem.Lemmatizer();
 
   // json.js plugin automatically parses, so no parsing needed
