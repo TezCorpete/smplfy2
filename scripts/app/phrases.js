@@ -290,8 +290,6 @@ function(lem,          phraseData,              lookupData) {
    */
   function findMatches( text ) {
     text = nonDestructiveNormalize( text );
-
-    console.log( "nDNormalized Text: " + text );
     
     const matches = [];
 
@@ -359,6 +357,8 @@ function(lem,          phraseData,              lookupData) {
         } );
       }
     } // End lookup loop
+
+    console.log( "nDNormalized Text: " + text );
 
     return matches;
   } // End findMatches
