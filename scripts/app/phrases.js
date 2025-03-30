@@ -369,7 +369,6 @@ function(lem,          phraseData,              lookupData) {
    * @param {String} reference - Where you want to search for things
    * @param {int} index - The starting index of the search. Defaults to 0.
    * @return {Array} - A list of indices / what was checked as objects
-   *   Also includes the actual thing that matched, as "actual"
    */
   function searchForXInY( lookup, reference, index) {
     const indices = [];
@@ -396,25 +395,12 @@ function(lem,          phraseData,              lookupData) {
       const iOf = reference.indexOf(things[i], index);
       
       if ( iOf > -1 ) {
-        // Get the actual thing that matched
-        const actualPhrase = phraseData[i];
-        let actualMatch;
-        if ( i === 0) {
-          actualMatch = actualPhrase.phrase;
-        } else if (hasAcronyms && ( i > 0 && i <= actualPhrase.acronyms.length)) {
-          actualMatch = actualPhrase.acronyms[i - 1];
-        } else { // The category matched
-          actualMatch = actualPhrase.category;
-        }
-
-
         indices.push({
           "index": iOf,
-          "thing": things[i],
-          "actual": actualMatch
+          "thing": things[i]
         });
       }
-    }
+    } // End things loop
 
     // console.log("Indices: " + JSON.stringify(indices));
     
