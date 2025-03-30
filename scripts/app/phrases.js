@@ -240,14 +240,19 @@ function(lem,          phraseData,              lookupData) {
     
     // Get one lemma for each word (Only ever choosing the first lemma should be fine, right?)
     const normalized = capNormalized.map( (word) => {
+      const normWord = lemmatizer.only_lemmas(word)[0]; // ".only_lemmas" returns a list
+      
       // Acronyms are always to be left as is, and
       // Lemmatizer tends to delete one letter words,
-      // of which there aren't many, but this is cleaner
-      if (word.isAcronym() || word.length == 1) {
+      // of which there aren't many, but this is cleaner.
+      // Shorter words in general aren't treated well,
+      // hence the extra check.
+      if ( word.isAcronym() || word.length == 1 
+      || normWord.length == 0 || normWord.valueOf() == " " ) {
         return word;
       }
       // Otherwise, it's business as usual
-      return lemmatizer.only_lemmas(word)[0]; // ".only_lemmas" returns a list
+      return normWord;
     } );
 
     // Return the line, a string once more
