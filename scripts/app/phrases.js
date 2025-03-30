@@ -417,13 +417,15 @@ function(lem,          phraseData,              lookupData) {
   }
   
   return {
-    // Shhhhh. I didn't want to learn file editing
-    // "printNormalizedPhraseData": printNormalizedPhraseData,
+    "phrasesLength" : phraseData.length,
+    "fetch"         : fetch,
+    "lookupLength"  : lookupData.length,
+    "fetchLookup"   : fetchLookup,
+    "mostLikely"    : mostLikely,
     "nonDestructiveNormalize": nonDestructiveNormalize,
     "pickyNormalize": pickyNormalize,
-    "fetch"         : fetch,
-    "fetchLookup"   : fetchLookup,
+    // Shhhhh. I didn't want to learn file editing
+    // "printNormalizedPhraseData": printNormalizedPhraseData,
     "findMatches"   : findMatches,
-    "mostLikely"    : mostLikely
   };
 }); // End of define
