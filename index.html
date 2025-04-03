@@ -2,39 +2,46 @@
 <html lang="en-us">
 <head>
   <meta charset="UTF-8">
-  <title>smplfy | Tree Canvas</title>
-  <link href="styles.css" rel="stylesheet"/>
+  <title>Welcome</title>
+  <link rel="icon" type="image/x-icon" href="Untitled design (1).png">
+
   
   <!-- data-main attribute tells require.js to load
        scripts/main.js after require.js loads. -->
-  <script data-main="scripts/app.js" src="scripts/require.js"></script>
+       <style>
+        h1{
+            font-size:100px;
+        }
+        img{
+            height: 250px;
+            width:250px;
+            margin-top:-50px;
+            margin-bottom:-50px;
+        }
+        h2{
+            font-size:50px;
+        }
+        button{
+            font-size:50px;
+            border-radius:10px;
+            width:150px;
+            transition: width 0.2s ease-in-out;
+        }
+        button:hover{
+            background-color:lightblue;
+            width:500px;
+        }
+       </style>
 </head>
-<body>
-  <div id="input">
-    <div id="doc-text" contenteditable="true" placeholder="Try pasting text from a policy contract!"></div>
-    
-    <div id="input-btns">
-      <button id="paste-btn">Paste</button>
-      <button id="clear-btn">Clear</input>
-      <button id="submit-btn">Check definitions</input>
-    </div>
-  </div>
+<body style="text-align:center; background-color:#00B9E8";>
+
   
-  <div id="doc-info">
-    <div id="title">
-      <h1 id="title-button">Tree Canvas</h1>
-    </div>
-    
-    <div class="container">
-      <div id="canvas"></div>
-    </div>
-    
-    <div id="def-tbl">
-      <div id="def-tbl-head">Term Information</div>
-      <div id="def-tbl-phrase">Phrase</div>
-      <div id="def-tbl-def">Definition</div>
-    </div>
-  </div
-  >
+
+    <a href="index.html" style="text-decoration:none; color:black;"><h1>PolicyPal</h1></a>
+
+
+  <img src="Untitled design (1).png">
+  <h2>Insurance Made Simple</h2>
+  <a href="pp.html"><Button>Enter</Button></a>
   </body>
 </html>
