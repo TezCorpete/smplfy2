@@ -2,15 +2,15 @@
 <html lang="en-us">
 <head>
   <meta charset="UTF-8">
-  <title>Detect and Define</title>
+  <title>Insurance Terms</title>
   <link rel="icon" type="image/x-icon" href="Untitled design (1).png">
-  <link href="styles.css" rel="stylesheet"/>
+
   
   <!-- data-main attribute tells require.js to load
        scripts/main.js after require.js loads. -->
-  <script data-main="scripts/app.js" src="scripts/require.js"></script>
-  <style>
-    header{
+       <style>
+
+header{
   width:100%;
   display:flex;
   justify-content:space-between;
@@ -21,18 +21,6 @@
   left:0px;
   right:0px;
 }
-#buttonTop{
-  font-size:50px;
-            border-radius:10px;
-            width:170px;
-            height:50px;
-            font-size:15px;
-            text-align: center;
-            border:solid blue 2px;
-            
-           
-
-}
 
     button{
             font-size:50px;
@@ -41,8 +29,6 @@
             height:50px;
             font-size:15px;
             text-align: center;
-            border:1px solid black;
-            
         }
         button:hover{
         background-color:lightblue;
@@ -88,53 +74,53 @@
 .dropdown:hover .dropbtn {
   background-color: lightblue;
 }
+
+#buttonTop{
+border: solid blue 3px;
+
+
+}
     
 
-  </style>
+	
+
+
+
+       </style>
 </head>
 <body>
-  <header>
-    <a href="index.html" style="text-decoration:none; color:black;"><h1>PolicyPal</h1></a>
-    <a id="buttonTop" href="pp.html"><button>Detect and Define</button></a>
-    
-    <div class="dropdown">
-      <button class="dropbtn">More</button>
+    <header>
+      <a href="index.html" style="text-decoration:none; color:black;"><h1>PolicyPal</h1></a>
+      
+      <div class="dropdown">
+      <a href="pp2.html"><button class="buttonTop" id="buttonTop">Insurance Terms</button></a>
       <div class="dropdown-content">
-      <a href="it.html">Insurance Terms</a>
-      <a href="about.html">About</a>
-      <a href="feedback.html">feedback</a>
-
+        <a href="pp.html">Detect and Define</a>
       </div>
     </div>
-      
-     
-  </header>
+    
+      <div class="dropdown">
+        <button class="dropbtn">More</button>
+        <div class="dropdown-content">
+        <a href="about.html">About</a>
+        <a href="feedback.html">Feedback</a>
 
-  <div id="input">
-    <div id="doc-text" contenteditable="true" placeholder="Try pasting text from a policy contract!"></div>
-    <br>
-    <div id="input-btns">
-      <button id="paste-btn">Paste</button>
-      <button id="clear-btn">Clear</input>
-      <button id="submit-btn">Check definitions</input>
-    </div>
-  </div>
+        </div>
+      </div>
+        
+       
+    </header>
+    <br><br><br>
+    <h1 style="text-align: center;">Insurance Terminology</h1>
+    
+
+   
+    
+
+      
+    
+
   
-  <div id="doc-info">
-    <div id="title">
-      <h1 id="title-button">Tree Canvas</h1>
-    </div>
-    
-    <div class="container">
-      <div id="canvas"></div>
-    </div>
-    
-    <div id="def-tbl">
-      <div id="def-tbl-head">Term Information</div>
-      <div id="def-tbl-phrase">Phrase</div>
-      <div id="def-tbl-def">Definition</div>
-    </div>
-  </div
-  >
   </body>
 </html>
+
