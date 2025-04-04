@@ -28,7 +28,7 @@
             height:50px;
             font-size:15px;
             text-align: center;
-            border:solid blue 2px;
+            border:solid blue 3px;
             
            
 
@@ -57,6 +57,8 @@
   cursor: pointer;
   margin-right:2px;
 }
+
+ 
 
 .dropdown {
   position: relative;
@@ -87,6 +89,8 @@
 
 .dropdown:hover .dropbtn {
   background-color: lightblue;
+  
+ 
 }
     
 
@@ -95,18 +99,26 @@
 <body>
   <header>
     <a href="index.html" style="text-decoration:none; color:black;"><h1>PolicyPal</h1></a>
-    <a id="buttonTop" href="pp.html"><button>Detect and Define</button></a>
-    
-    <div class="dropdown">
-      <button class="dropbtn">More</button>
-      <div class="dropdown-content">
-      <a href="it.html">Insurance Terms</a>
-      <a href="about.html">About</a>
-      <a href="feedback.html">feedback</a>
-
-      </div>
-    </div>
       
+      <div class="container2">
+        <!-- First Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn" id="buttonTop">Detect and Define</button>
+            <div class="dropdown-content">
+                <a href="pp2.html">Insurance terms</a>
+              
+            </div>
+        </div>
+        </div>
+
+        <!-- Second Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn" style="margin-right:3px;">More</button>
+            <div class="dropdown-content">
+                <a href="about.html">About</a>
+                <a href="feedback.html">Feedback</a>
+            </div>
+        </div>
      
   </header>
 
@@ -136,5 +148,7 @@
     </div>
   </div
   >
+  
+      
   </body>
 </html>
